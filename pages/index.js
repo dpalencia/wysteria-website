@@ -5,21 +5,107 @@ import { getBandInfo, getAlbums } from '../lib/cms'
 export default function Home({ bandInfo, albums }) {
   const { socialMedia } = bandInfo
 
+  // Structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": bandInfo.bandName,
+    "description": bandInfo.tagline,
+    "url": "https://wysteriamusic.com", // Replace with your actual domain
+    "genre": ["Gothic Rock", "Dark Wave", "Alternative Rock"],
+    "location": {
+      "@type": "Place",
+      "addressLocality": bandInfo.city,
+      "addressRegion": "New Mexico",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      socialMedia.youtube,
+      socialMedia.instagram,
+      socialMedia.spotify,
+      socialMedia.twitter,
+      socialMedia.facebook,
+      socialMedia.bandcamp
+    ].filter(Boolean),
+    "image": bandInfo.heroImage,
+    "potentialAction": {
+      "@type": "ListenAction",
+      "target": socialMedia.spotify || socialMedia.youtube
+    }
+  }
+
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
       <Head>
-        <title>{bandInfo.bandName} - Albuquerque Goth</title>
-        <meta name="description" content={`Official website of ${bandInfo.bandName} - Gothic from ${bandInfo.city}`} />
+        {/* Basic SEO Meta Tags */}
+        <title>{bandInfo.bandName} - Gothic Rock Band | Albuquerque, NM</title>
+        <meta name="description" content={`${bandInfo.bandName} is a gothic rock band from ${bandInfo.city}. Experience dark melodies and haunting atmospheres. Listen to our latest demo 'Carrie's Nightmare' and discover our unique blend of gothic rock music.`} />
+        <meta name="keywords" content="gothic rock, dark wave, alternative rock, Albuquerque bands, New Mexico music, gothic music, dark rock, Wysteria, Carrie's Nightmare" />
+        <meta name="author" content={bandInfo.bandName} />
+        <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://wysteriamusic.com" /> {/* Replace with your actual domain */}
+        
+        {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        
+        {/* Open Graph Meta Tags for Social Media */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`${bandInfo.bandName} - Gothic Rock Band`} />
+        <meta property="og:description" content={`${bandInfo.tagline} - Gothic rock band from ${bandInfo.city}. Listen to our haunting melodies and dark atmospheres.`} />
+        <meta property="og:url" content="https://wysteriamusic.com" /> {/* Replace with your actual domain */}
+        <meta property="og:image" content={bandInfo.heroImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content={bandInfo.bandName} />
+        <meta property="og:locale" content="en_US" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${bandInfo.bandName} - Gothic Rock Band`} />
+        <meta name="twitter:description" content={`${bandInfo.tagline} - Gothic rock band from ${bandInfo.city}. Listen to our haunting melodies.`} />
+        <meta name="twitter:image" content={bandInfo.heroImage} />
+        <meta name="twitter:site" content="@wysteria" /> {/* Replace with your Twitter handle */}
+        
+        {/* Music-specific Meta Tags */}
+        <meta name="music:musician" content={bandInfo.bandName} />
+        <meta name="music:genre" content="Gothic Rock" />
+        <meta name="music:album" content="Carrie's Nightmare" />
+        
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData)
+          }}
+        />
+        
+        {/* Preconnect to external domains for performance */}
+        <link rel="preconnect" href="https://www.youtube.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* DNS Prefetch for social media */}
+        <link rel="dns-prefetch" href="//youtube.com" />
+        <link rel="dns-prefetch" href="//instagram.com" />
+        <link rel="dns-prefetch" href="//spotify.com" />
+        <link rel="dns-prefetch" href="//twitter.com" />
+        <link rel="dns-prefetch" href="//facebook.com" />
+        <link rel="dns-prefetch" href="//bandcamp.com" />
       </Head>
 
       {/* Hero Section with Band Photo */}
       <section className="hero-section">
         <img 
           src={bandInfo.heroImage} 
-          alt={`${bandInfo.bandName} Band`} 
+          alt={`${bandInfo.bandName} - Gothic rock band performing live`} 
           className="hero-image"
+          loading="eager"
         />
         <div className="hero-overlay"></div>
         <div className="hero-content">
@@ -38,9 +124,26 @@ export default function Home({ bandInfo, albums }) {
             marginBottom: '2rem', 
             maxWidth: '32rem',
             textAlign: 'center',
-            padding: '0 1rem'
+            padding: '0 1rem',
+            marginLeft: 'auto',
+            marginRight: 'auto'
           }}>
             {bandInfo.tagline}
+          </p>
+          <p style={{ 
+            fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)', 
+            color: '#e0e0e0', 
+            marginBottom: 'clamp(1.5rem, 4vw, 2rem)', 
+            maxWidth: '40rem',
+            textAlign: 'center',
+            padding: '0 1rem',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            fontFamily: 'Playfair Display, serif',
+            lineHeight: '1.6',
+            fontStyle: 'italic'
+          }}>
+            {bandInfo.about.replace(/<[^>]*>/g, '')}
           </p>
           <div style={{ 
             display: 'flex', 
@@ -59,6 +162,7 @@ export default function Home({ bandInfo, albums }) {
                   width: 'clamp(2.5rem, 8vw, 3.5rem)',
                   height: 'clamp(2.5rem, 8vw, 3.5rem)'
                 }}
+                aria-label={`Follow ${bandInfo.bandName} on YouTube`}
               >
                 <FaYoutube style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
               </a>
@@ -74,6 +178,7 @@ export default function Home({ bandInfo, albums }) {
                   width: 'clamp(2.5rem, 8vw, 3.5rem)',
                   height: 'clamp(2.5rem, 8vw, 3.5rem)'
                 }}
+                aria-label={`Follow ${bandInfo.bandName} on Instagram`}
               >
                 <FaInstagram style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
               </a>
@@ -89,6 +194,7 @@ export default function Home({ bandInfo, albums }) {
                   width: 'clamp(2.5rem, 8vw, 3.5rem)',
                   height: 'clamp(2.5rem, 8vw, 3.5rem)'
                 }}
+                aria-label={`Listen to ${bandInfo.bandName} on Spotify`}
               >
                 <FaSpotify style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
               </a>
@@ -104,6 +210,7 @@ export default function Home({ bandInfo, albums }) {
                   width: 'clamp(2.5rem, 8vw, 3.5rem)',
                   height: 'clamp(2.5rem, 8vw, 3.5rem)'
                 }}
+                aria-label={`Follow ${bandInfo.bandName} on Twitter`}
               >
                 <FaTwitter style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
               </a>
@@ -119,6 +226,7 @@ export default function Home({ bandInfo, albums }) {
                   width: 'clamp(2.5rem, 8vw, 3.5rem)',
                   height: 'clamp(2.5rem, 8vw, 3.5rem)'
                 }}
+                aria-label={`Follow ${bandInfo.bandName} on Facebook`}
               >
                 <FaFacebook style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
               </a>
@@ -134,6 +242,7 @@ export default function Home({ bandInfo, albums }) {
                   width: 'clamp(2.5rem, 8vw, 3.5rem)',
                   height: 'clamp(2.5rem, 8vw, 3.5rem)'
                 }}
+                aria-label={`Listen to ${bandInfo.bandName} on Bandcamp`}
               >
                 <FaBandcamp style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
               </a>
@@ -178,7 +287,7 @@ export default function Home({ bandInfo, albums }) {
             }}>
               <iframe
                 src="https://www.youtube.com/embed/z1jELdRYg-w?si=9Cxu9rtPJxzLWny1"
-                title="Wysteria Demo Video"
+                title={`${bandInfo.bandName} - Carrie's Nightmare Live Performance`}
                 style={{
                   position: 'absolute',
                   top: 0,
@@ -189,6 +298,7 @@ export default function Home({ bandInfo, albums }) {
                 }}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                loading="lazy"
               />
             </div>
           </div>
