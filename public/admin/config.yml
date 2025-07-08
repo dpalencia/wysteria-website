@@ -1,0 +1,91 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "band-info"
+    label: "Band Information"
+    files:
+      - name: "general"
+        label: "General Band Info"
+        file: "content/band-info.md"
+        fields:
+          - {label: "Band Name", name: "bandName", widget: "string"}
+          - {label: "Tagline", name: "tagline", widget: "string"}
+          - {label: "City", name: "city", widget: "string"}
+          - {label: "Hero Image", name: "heroImage", widget: "image", default: "/band-hero.jpg"}
+          - {label: "Studio Image", name: "studioImage", widget: "image", default: "/band-studio.jpg"}
+          - {label: "About Section", name: "about", widget: "markdown"}
+          - {label: "Social Media", name: "socialMedia", widget: "object", fields:
+              - {label: "YouTube URL", name: "youtube", widget: "string", required: false}
+              - {label: "Instagram URL", name: "instagram", widget: "string", required: false}
+              - {label: "Spotify URL", name: "spotify", widget: "string", required: false}
+              - {label: "Twitter URL", name: "twitter", widget: "string", required: false}
+              - {label: "Facebook URL", name: "facebook", widget: "string", required: false}
+              - {label: "Bandcamp URL", name: "bandcamp", widget: "string", required: false}
+            }
+
+  - name: "albums"
+    label: "Albums"
+    folder: "content/albums"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Release Date", name: "releaseDate", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Album Art", name: "albumArt", widget: "image"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Track List", name: "tracks", widget: "list", fields:
+          - {label: "Track Title", name: "title", widget: "string"}
+          - {label: "Duration", name: "duration", widget: "string", required: false}
+        }
+      - {label: "Spotify Link", name: "spotifyLink", widget: "string", required: false}
+      - {label: "Bandcamp Link", name: "bandcampLink", widget: "string", required: false}
+      - {label: "Apple Music Link", name: "appleMusicLink", widget: "string", required: false}
+
+  - name: "shows"
+    label: "Live Shows"
+    folder: "content/shows"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Show Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Time", name: "time", widget: "string"}
+      - {label: "Venue", name: "venue", widget: "string"}
+      - {label: "Address", name: "address", widget: "string"}
+      - {label: "City", name: "city", widget: "string"}
+      - {label: "Ticket Link", name: "ticketLink", widget: "string", required: false}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Featured", name: "featured", widget: "boolean", default: false}
+
+  - name: "news"
+    label: "News & Updates"
+    folder: "content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "Content", name: "body", widget: "markdown"}
+      - {label: "Excerpt", name: "excerpt", widget: "text", required: false}
+      - {label: "Published", name: "published", widget: "boolean", default: true}
+
+  - name: "photos"
+    label: "Band Photos"
+    folder: "content/photos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Photographer", name: "photographer", widget: "string", required: false}
+      - {label: "Featured", name: "featured", widget: "boolean", default: false} 

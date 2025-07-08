@@ -1,0 +1,22 @@
+---
+title: "Midnight Dreams"
+releaseDate: "2024-01-15"
+albumArt: "/images/uploads/midnight-dreams.jpg"
+description: "Our latest gothic masterpiece, exploring the darkest corners of the human soul through haunting melodies and atmospheric soundscapes."
+tracks:
+  - title: "Eternal Night"
+    duration: "4:32"
+  - title: "Shadows Dance"
+    duration: "5:18"
+  - title: "Crimson Moon"
+    duration: "6:45"
+  - title: "Whispers in the Dark"
+    duration: "4:12"
+  - title: "Midnight Dreams"
+    duration: "7:23"
+  - title: "Veil of Sorrow"
+    duration: "5:56"
+spotifyLink: "https://open.spotify.com/album/midnight-dreams"
+bandcampLink: "https://wysteria.bandcamp.com/album/midnight-dreams"
+appleMusicLink: "https://music.apple.com/album/midnight-dreams"
+--- 
