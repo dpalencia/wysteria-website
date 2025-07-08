@@ -208,7 +208,7 @@ export default function Home({ bandInfo, albums }) {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer
       <footer style={{ 
         backgroundColor: '#1a1a1a', 
         padding: 'clamp(1.5rem, 4vw, 2rem) clamp(1rem, 4vw, 2rem)', 
@@ -256,7 +256,7 @@ export default function Home({ bandInfo, albums }) {
             }}>Press Kit</a>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }
