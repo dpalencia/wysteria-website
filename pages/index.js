@@ -70,8 +70,7 @@ export default function Home({ bandInfo, albums }) {
         <meta name="twitter:title" content={`${bandInfo.bandName} - Gothic Rock Band`} />
         <meta name="twitter:description" content={`${bandInfo.tagline} - Gothic rock band from ${bandInfo.city}. Listen to our haunting melodies.`} />
         <meta name="twitter:image" content={bandInfo.heroImage} />
-        <meta name="twitter:site" content="@wysteria" /> {/* Replace with your Twitter handle */}
-        
+]
         {/* Music-specific Meta Tags */}
         <meta name="music:musician" content={bandInfo.bandName} />
         <meta name="music:genre" content="Gothic Rock" />
