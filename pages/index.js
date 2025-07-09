@@ -12,7 +12,7 @@ export default function Home({ bandInfo, albums }) {
     "name": bandInfo.bandName,
     "description": bandInfo.tagline,
     "url": "https://wysteriamusic.com", // Replace with your actual domain
-    "genre": ["Gothic Rock", "Dark Wave", "Alternative Rock"],
+    "genre": ["Goth", "Gothic Metal", "Gothic Rock", "Dark Wave", "Alternative Rock"],
     "location": {
       "@type": "Place",
       "addressLocality": bandInfo.city,
@@ -38,9 +38,9 @@ export default function Home({ bandInfo, albums }) {
     <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
       <Head>
         {/* Basic SEO Meta Tags */}
-        <title>{bandInfo.bandName} - Gothic Rock Band | Albuquerque, NM</title>
-        <meta name="description" content={`${bandInfo.bandName} is a gothic rock band from ${bandInfo.city}. Experience dark melodies and haunting atmospheres. Listen to our latest demo 'Carrie's Nightmare' and discover our unique blend of gothic rock music.`} />
-        <meta name="keywords" content="gothic rock, dark wave, alternative rock, Albuquerque bands, New Mexico music, gothic music, dark rock, Wysteria, Carrie's Nightmare" />
+        <title>{bandInfo.bandName} - Gothic Band | Albuquerque, NM</title>
+        <meta name="description" content={`${bandInfo.bandName} is a goth band from ${bandInfo.city}. Experience dark melodies and haunting atmospheres. Listen to our latest demo 'Carrie's Nightmare' and discover our unique blend of goth music.`} />
+        <meta name="keywords" content="goth, gothic metal, gothic rock, dark wave, alternative rock, Albuquerque bands, New Mexico music, gothic music, dark rock, Wysteria, Carrie's Nightmare" />
         <meta name="author" content={bandInfo.bandName} />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -56,8 +56,8 @@ export default function Home({ bandInfo, albums }) {
         
         {/* Open Graph Meta Tags for Social Media */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={`${bandInfo.bandName} - Gothic Rock Band`} />
-        <meta property="og:description" content={`${bandInfo.tagline} - Gothic rock band from ${bandInfo.city}. Listen to our haunting melodies and dark atmospheres.`} />
+        <meta property="og:title" content={`${bandInfo.bandName} - Gothic Band`} />
+        <meta property="og:description" content={`${bandInfo.tagline} - Goth band from ${bandInfo.city}. Listen to our haunting melodies and dark atmospheres.`} />
         <meta property="og:url" content="https://wysteriamusic.com" /> {/* Replace with your actual domain */}
         <meta property="og:image" content={bandInfo.heroImage} />
         <meta property="og:image:width" content="1200" />
@@ -67,13 +67,13 @@ export default function Home({ bandInfo, albums }) {
         
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${bandInfo.bandName} - Gothic Rock Band`} />
-        <meta name="twitter:description" content={`${bandInfo.tagline} - Gothic rock band from ${bandInfo.city}. Listen to our haunting melodies.`} />
+        <meta name="twitter:title" content={`${bandInfo.bandName} - Goth Band`} />
+        <meta name="twitter:description" content={`${bandInfo.tagline} - Goth band from ${bandInfo.city}. Listen to our haunting melodies.`} />
         <meta name="twitter:image" content={bandInfo.heroImage} />
 ]
         {/* Music-specific Meta Tags */}
         <meta name="music:musician" content={bandInfo.bandName} />
-        <meta name="music:genre" content="Gothic Rock" />
+        <meta name="music:genre" content="Goth" />
         <meta name="music:album" content="Carrie's Nightmare" />
         
         {/* Structured Data */}
@@ -102,7 +102,7 @@ export default function Home({ bandInfo, albums }) {
       <section className="hero-section">
         <img 
           src={bandInfo.heroImage} 
-          alt={`${bandInfo.bandName} - Gothic rock band performing live`} 
+          alt={`${bandInfo.bandName} - Goth band photo`} 
           className="hero-image"
           loading="eager"
         />
