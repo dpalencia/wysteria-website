@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import { FaYoutube, FaInstagram, FaSpotify, FaTwitter, FaFacebook, FaBandcamp } from 'react-icons/fa'
-import { getBandInfo, getAlbums } from '../lib/cms'
+import { getBandInfo, getAlbums, getShows } from '../lib/cms'
 
-export default function Home({ bandInfo, albums }) {
+export default function Home({ bandInfo, albums, shows }) {
   const { socialMedia } = bandInfo
+  const upcomingShow = shows && shows.length > 0 ? shows[0] : null;
 
   // Structured data for SEO
   const structuredData = {
@@ -39,8 +40,8 @@ export default function Home({ bandInfo, albums }) {
       <Head>
         {/* Basic SEO Meta Tags */}
         <title>{bandInfo.bandName} - Gothic Band | Albuquerque, NM</title>
-        <meta name="description" content={`${bandInfo.bandName} is a goth band from ${bandInfo.city}. Experience dark melodies and haunting atmospheres. Listen to our latest demo 'Carrie's Nightmare' and discover our unique blend of goth music.`} />
-        <meta name="keywords" content="goth, gothic metal, gothic rock, dark wave, alternative rock, Albuquerque bands, New Mexico music, gothic music, dark rock, Wysteria, Carrie's Nightmare" />
+        <meta name="description" content={`${bandInfo.bandName} is a goth band from ${bandInfo.city}. Listen to our latest demo 'Infest Digest'.`} />
+        <meta name="keywords" content="goth, gothic metal, gothic rock, dark wave, alternative rock, Albuquerque bands, New Mexico music, gothic music, dark rock, Wysteria, Infest Digest" />
         <meta name="author" content={bandInfo.bandName} />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -74,7 +75,7 @@ export default function Home({ bandInfo, albums }) {
         {/* Music-specific Meta Tags */}
         <meta name="music:musician" content={bandInfo.bandName} />
         <meta name="music:genre" content="Goth" />
-        <meta name="music:album" content="Carrie's Nightmare" />
+        <meta name="music:album" content="Infest Digest" />
         
         {/* Structured Data */}
         <script
@@ -98,226 +99,604 @@ export default function Home({ bandInfo, albums }) {
         <link rel="dns-prefetch" href="//bandcamp.com" />
       </Head>
 
-      {/* Hero Section with Band Photo */}
-      <section className="hero-section">
-        <img 
-          src={bandInfo.heroImage} 
-          alt={`${bandInfo.bandName} - Goth band photo`} 
-          className="hero-image"
-          loading="eager"
-        />
-        <div className="hero-overlay"></div>
-        <div className="hero-content">
-          <h1 className="gothic-title" style={{ 
-            fontSize: 'clamp(2.5rem, 8vw, 4rem)', 
-            marginBottom: '1rem', 
-            color: '#ffffff',
-            textAlign: 'center',
-            padding: '0 1rem'
-          }}>
-            {bandInfo.bandName.toUpperCase()}
-          </h1>
-          <p className="gothic-subtitle" style={{ 
-            fontSize: 'clamp(1rem, 4vw, 1.5rem)', 
-            color: '#dc143c', 
-            marginBottom: '2rem', 
-            maxWidth: '32rem',
-            textAlign: 'center',
-            padding: '0 1rem',
-            marginLeft: 'auto',
-            marginRight: 'auto'
-          }}>
-            {bandInfo.tagline}
-          </p>
-          <p style={{ 
-            fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)', 
-            color: '#e0e0e0', 
-            marginBottom: 'clamp(1.5rem, 4vw, 2rem)', 
-            maxWidth: '40rem',
-            textAlign: 'center',
-            padding: '0 1rem',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            fontFamily: 'Playfair Display, serif',
-            lineHeight: '1.6',
-            fontStyle: 'italic'
-          }}>
-            {bandInfo.about.replace(/<[^>]*>/g, '')}
-          </p>
-          <div style={{ 
+      <main className="min-h-screen">
+        <div className="container mx-auto px-4">
+          {/* Navigation */}
+          <nav style={{ 
+            padding: 'clamp(1rem, 2vw, 1.5rem) 0', 
             display: 'flex', 
             justifyContent: 'center', 
-            gap: 'clamp(0.5rem, 2vw, 1rem)', 
-            flexWrap: 'wrap',
-            padding: '0 1rem'
+            alignItems: 'center',
+            borderBottom: '1px solid rgba(139, 0, 0, 0.3)',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 100,
+            backdropFilter: 'blur(10px)',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)'
           }}>
-            {socialMedia.youtube && (
-              <a 
-                href={socialMedia.youtube} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="social-link"
-                style={{
-                  width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                  height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                }}
-                aria-label={`Follow ${bandInfo.bandName} on YouTube`}
-              >
-                <FaYoutube style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-              </a>
-            )}
-            {socialMedia.instagram && (
-              <a 
-                href={socialMedia.instagram} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="social-link"
-                style={{ 
-                  background: 'linear-gradient(45deg, #8b0000, #dc143c)',
-                  width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                  height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                }}
-                aria-label={`Follow ${bandInfo.bandName} on Instagram`}
-              >
-                <FaInstagram style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-              </a>
-            )}
-            {socialMedia.spotify && (
-              <a 
-                href={socialMedia.spotify} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="social-link"
-                style={{ 
-                  backgroundColor: '#8b0000',
-                  width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                  height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                }}
-                aria-label={`Listen to ${bandInfo.bandName} on Spotify`}
-              >
-                <FaSpotify style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-              </a>
-            )}
-            {socialMedia.twitter && (
-              <a 
-                href={socialMedia.twitter} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="social-link"
-                style={{ 
-                  backgroundColor: '#8b0000',
-                  width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                  height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                }}
-                aria-label={`Follow ${bandInfo.bandName} on Twitter`}
-              >
-                <FaTwitter style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-              </a>
-            )}
-            {socialMedia.facebook && (
-              <a 
-                href={socialMedia.facebook} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="social-link"
-                style={{ 
-                  backgroundColor: '#8b0000',
-                  width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                  height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                }}
-                aria-label={`Follow ${bandInfo.bandName} on Facebook`}
-              >
-                <FaFacebook style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-              </a>
-            )}
-            {socialMedia.bandcamp && (
-              <a 
-                href={socialMedia.bandcamp} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="social-link"
-                style={{ 
-                  backgroundColor: '#8b0000',
-                  width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                  height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                }}
-                aria-label={`Listen to ${bandInfo.bandName} on Bandcamp`}
-              >
-                <FaBandcamp style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-              </a>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* YouTube Demo Section */}
-      <section style={{ 
-        padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem)', 
-        backgroundColor: '#1a1a1a' 
-      }}>
-        <div style={{ 
-          maxWidth: '72rem', 
-          margin: '0 auto', 
-          textAlign: 'center' 
-        }}>
-          <h2 className="section-title" style={{ 
-            fontSize: 'clamp(2rem, 6vw, 3rem)', 
-            marginBottom: 'clamp(1.5rem, 4vw, 2rem)', 
-            color: '#dc143c',
-            padding: '0 1rem'
-          }}>
-            Demo - Carrie's Nightmare
-          </h2>
-          <div style={{ 
-            position: 'relative',
-            width: '100%',
-            maxWidth: '800px',
-            margin: '0 auto',
-            borderRadius: '0.5rem',
-            overflow: 'hidden',
-            boxShadow: '0 25px 50px -12px rgba(139,0,0,0.4)',
-            border: '2px solid #8b0000'
-          }}>
-            <div style={{
-              position: 'relative',
-              paddingBottom: '56.25%', /* 16:9 aspect ratio */
-              height: 0,
-              overflow: 'hidden'
+            <div style={{ 
+              maxWidth: '72rem', 
+              margin: '0 auto',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%'
             }}>
-              <iframe
-                src="https://www.youtube.com/embed/z1jELdRYg-w?si=9Cxu9rtPJxzLWny1"
-                title={`${bandInfo.bandName} - Carrie's Nightmare Live Performance`}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  border: 0
-                }}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              />
+              <a href="/" style={{ 
+                fontSize: 'clamp(1.5rem, 4vw, 2rem)', 
+                color: '#ffffff', 
+                textDecoration: 'none', 
+                fontFamily: 'Cinzel, serif', 
+                fontWeight: 'bold', 
+                letterSpacing: '2px', 
+                textTransform: 'uppercase'
+              }}>
+                Wysteria
+              </a>
+              <div style={{ 
+                display: 'flex', 
+                gap: 'clamp(1rem, 3vw, 2rem)', 
+                alignItems: 'center'
+              }}>
+                {socialMedia.youtube && (
+                  <a 
+                    href={socialMedia.youtube} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      color: '#ffffff', 
+                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
+                    }}
+                    aria-label={`Follow ${bandInfo.bandName} on YouTube`}
+                  >
+                    <FaYoutube />
+                  </a>
+                )}
+                {socialMedia.instagram && (
+                  <a 
+                    href={socialMedia.instagram} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      color: '#ffffff', 
+                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
+                    }}
+                    aria-label={`Follow ${bandInfo.bandName} on Instagram`}
+                  >
+                    <FaInstagram />
+                  </a>
+                )}
+                {socialMedia.spotify && (
+                  <a 
+                    href={socialMedia.spotify} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      color: '#ffffff', 
+                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
+                    }}
+                    aria-label={`Listen to ${bandInfo.bandName} on Spotify`}
+                  >
+                    <FaSpotify />
+                  </a>
+                )}
+                {socialMedia.twitter && (
+                  <a 
+                    href={socialMedia.twitter} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      color: '#ffffff', 
+                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
+                    }}
+                    aria-label={`Follow ${bandInfo.bandName} on Twitter`}
+                  >
+                    <FaTwitter />
+                  </a>
+                )}
+                {socialMedia.facebook && (
+                  <a 
+                    href={socialMedia.facebook} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      color: '#ffffff', 
+                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
+                    }}
+                    aria-label={`Follow ${bandInfo.bandName} on Facebook`}
+                  >
+                    <FaFacebook />
+                  </a>
+                )}
+                {socialMedia.bandcamp && (
+                  <a 
+                    href={socialMedia.bandcamp} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ 
+                      color: '#ffffff', 
+                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
+                    }}
+                    aria-label={`Listen to ${bandInfo.bandName} on Bandcamp`}
+                  >
+                    <FaBandcamp />
+                  </a>
+                )}
+              </div>
+            </div>
+          </nav>
+        </div>
+
+        {/* Upcoming Show Section - Now First */}
+        {upcomingShow && (
+          <section style={{ 
+            padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem)', 
+            backgroundColor: '#000000',
+            borderBottom: '1px solid #8b0000',
+            marginTop: '60px' // Added margin to account for the nav
+          }}>
+            <div style={{ 
+              maxWidth: '72rem', 
+              margin: '0 auto',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}>
+              <div style={{
+                marginBottom: 'clamp(2rem, 4vw, 3rem)',
+                textAlign: 'center',
+                position: 'relative',
+                width: '100%'
+              }}>
+                <h2 style={{
+                  fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
+                  color: '#dc143c',
+                  margin: '0',
+                  textTransform: 'uppercase',
+                  letterSpacing: '3px',
+                  fontFamily: 'Cinzel, serif',
+                  fontWeight: '700',
+                  display: 'inline-block',
+                  paddingBottom: '0.5rem',
+                  borderBottom: '2px solid #8b0000'
+                }}>
+                  Upcoming Show
+                </h2>
+              </div>
+              
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 'clamp(2rem, 5vw, 3rem)',
+                width: '100%',
+                '@media (min-width: 768px)': {
+                  flexDirection: 'row',
+                  alignItems: 'flex-start',
+                }
+              }}>
+                {/* Show Poster */}
+                <div style={{
+                  flex: '0 0 auto',
+                  maxWidth: '100%',
+                  '@media (min-width: 768px)': {
+                    maxWidth: '40%',
+                  }
+                }}>
+                  <img 
+                    src={upcomingShow.posterImage} 
+                    alt={`${upcomingShow.title} - Concert Poster`}
+                    style={{
+                      width: '100%',
+                      maxWidth: '800px',
+                      height: 'auto',
+                      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.5)',
+                      border: '1px solid #8b0000',
+                    }}
+                  />
+                </div>
+                
+                {/* Show Details */}
+                <div style={{
+                  flex: '1',
+                  color: '#ffffff',
+                  textAlign: 'center',
+                  '@media (min-width: 768px)': {
+                    textAlign: 'left',
+                  }
+                }}>
+                  <h3 style={{
+                    fontSize: 'clamp(2rem, 6vw, 3rem)',
+                    color: '#dc143c',
+                    marginBottom: 'clamp(1rem, 2vw, 1.5rem)',
+                    fontFamily: 'Cinzel, serif',
+                  }}>
+                    {upcomingShow.title}
+                  </h3>
+                  
+                  <div style={{
+                    marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
+                    fontSize: 'clamp(1.1rem, 2.5vw, 1.3rem)',
+                    color: '#e0e0e0',
+                    fontFamily: 'Playfair Display, serif',
+                  }}>
+                    <p style={{ marginBottom: '0.5rem' }}>
+                      <strong>Date:</strong> {(() => {
+                        // Parse the date and ensure it doesn't get affected by timezone
+                        const dateParts = upcomingShow.date.split('-');
+                        const year = parseInt(dateParts[0]);
+                        const month = parseInt(dateParts[1]) - 1; // Months are 0-indexed in JS
+                        const day = parseInt(dateParts[2]);
+                        const eventDate = new Date(year, month, day);
+                        
+                        return eventDate.toLocaleDateString('en-US', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        });
+                      })()}
+                    </p>
+                    <p style={{ marginBottom: '0.5rem' }}>
+                      <strong>Time:</strong> {upcomingShow.time}
+                    </p>
+                    <p style={{ marginBottom: '0.5rem' }}>
+                      <strong>Venue:</strong> {upcomingShow.venue}
+                    </p>
+                    <p style={{ marginBottom: '0.5rem' }}>
+                      <strong>Address:</strong> {upcomingShow.address}
+                    </p>
+                    {upcomingShow.ticketPrice && (
+                      <p style={{ marginBottom: '0.5rem' }}>
+                        <strong>Tickets:</strong> {upcomingShow.ticketPrice}
+                      </p>
+                    )}
+                  </div>
+                  
+                  <p style={{
+                    fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+                    color: '#e0e0e0',
+                    marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
+                    lineHeight: '1.6',
+                    fontFamily: 'Playfair Display, serif',
+                  }}>
+                    {upcomingShow.description}
+                  </p>
+                  
+                  {/* Ticket Info Section */}
+                  {upcomingShow.ticketPrice && (
+                    <div style={{
+                      marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
+                      padding: '1rem',
+                      backgroundColor: 'rgba(139, 0, 0, 0.2)',
+                      borderLeft: '4px solid #dc143c',
+                      borderRadius: '4px',
+                    }}>
+                      <h4 style={{
+                        fontSize: 'clamp(1.1rem, 2.5vw, 1.3rem)',
+                        color: '#dc143c',
+                        marginTop: 0,
+                        marginBottom: '0.5rem',
+                        fontFamily: 'Cinzel, serif',
+                      }}>
+                        Ticket Information
+                      </h4>
+                      <p style={{
+                        fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
+                        color: '#e0e0e0',
+                        marginBottom: '0.5rem',
+                        fontFamily: 'Playfair Display, serif',
+                      }}>
+                        <strong>Price:</strong> {upcomingShow.ticketPrice}
+                      </p>
+                      <p style={{
+                        fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
+                        color: '#e0e0e0',
+                        marginBottom: '0.5rem',
+                        fontFamily: 'Playfair Display, serif',
+                        lineHeight: '1.6',
+                      }}>
+                        {upcomingShow.ticketInfo || "Purchase tickets in advance for a discounted rate. Limited tickets available at the door."}
+                      </p>
+                      {upcomingShow.ticketLink && (
+                        <a 
+                          href={upcomingShow.ticketLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'inline-block',
+                            padding: '0.5rem 1rem',
+                            marginTop: '0.5rem',
+                            backgroundColor: '#dc143c',
+                            color: '#ffffff',
+                            textDecoration: 'none',
+                            borderRadius: '4px',
+                            fontFamily: 'Cinzel, serif',
+                            fontWeight: 'bold',
+                            fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
+                            textTransform: 'uppercase',
+                            letterSpacing: '1px',
+                            transition: 'background-color 0.3s ease',
+                          }}
+                        >
+                          Purchase Tickets
+                        </a>
+                      )}
+                    </div>
+                  )}
+                  
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '1rem',
+                    justifyContent: 'center',
+                    '@media (min-width: 768px)': {
+                      justifyContent: 'flex-start',
+                    }
+                  }}>
+                    {upcomingShow.facebookEvent && (
+                      <a 
+                        href={upcomingShow.facebookEvent}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          padding: '0.75rem 1.5rem',
+                          backgroundColor: '#3b5998',
+                          color: '#ffffff',
+                          textDecoration: 'none',
+                          borderRadius: '4px',
+                          fontFamily: 'Cinzel, serif',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px',
+                          transition: 'background-color 0.3s ease',
+                        }}
+                      >
+                        <FaFacebook /> Facebook Event
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Hero Section with Band Photo - Now Second */}
+        <section className="hero-section">
+          <img 
+            src={bandInfo.heroImage} 
+            alt={`${bandInfo.bandName} - Goth band photo`} 
+            className="hero-image"
+            loading="eager"
+          />
+          <div className="hero-overlay"></div>
+          <div className="hero-content">
+            <h1 className="gothic-title" style={{ 
+              fontSize: 'clamp(2.5rem, 8vw, 4rem)', 
+              marginBottom: '1rem', 
+              color: '#ffffff',
+              textAlign: 'center',
+              padding: '0 1rem'
+            }}>
+              {bandInfo.bandName.toUpperCase()}
+            </h1>
+            <p className="gothic-subtitle" style={{ 
+              fontSize: 'clamp(1rem, 4vw, 1.5rem)', 
+              color: '#dc143c', 
+              marginBottom: '2rem', 
+              maxWidth: '32rem',
+              textAlign: 'center',
+              padding: '0 1rem',
+              marginLeft: 'auto',
+              marginRight: 'auto'
+            }}>
+              {bandInfo.tagline}
+            </p>
+            <p style={{ 
+              fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)', 
+              color: '#e0e0e0', 
+              marginBottom: 'clamp(1.5rem, 4vw, 2rem)', 
+              maxWidth: '40rem',
+              textAlign: 'center',
+              padding: '0 1rem',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              fontFamily: 'Playfair Display, serif',
+              lineHeight: '1.6',
+              fontStyle: 'italic'
+            }}>
+              {bandInfo.about.replace(/<[^>]*>/g, '')}
+            </p>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              gap: 'clamp(0.5rem, 2vw, 1rem)', 
+              flexWrap: 'wrap',
+              padding: '0 1rem'
+            }}>
+              {socialMedia.youtube && (
+                <a 
+                  href={socialMedia.youtube} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="social-link"
+                  style={{
+                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
+                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
+                  }}
+                  aria-label={`Follow ${bandInfo.bandName} on YouTube`}
+                >
+                  <FaYoutube style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
+                </a>
+              )}
+              {socialMedia.instagram && (
+                <a 
+                  href={socialMedia.instagram} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="social-link"
+                  style={{ 
+                    background: 'linear-gradient(45deg, #8b0000, #dc143c)',
+                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
+                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
+                  }}
+                  aria-label={`Follow ${bandInfo.bandName} on Instagram`}
+                >
+                  <FaInstagram style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
+                </a>
+              )}
+              {socialMedia.spotify && (
+                <a 
+                  href={socialMedia.spotify} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="social-link"
+                  style={{ 
+                    backgroundColor: '#8b0000',
+                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
+                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
+                  }}
+                  aria-label={`Listen to ${bandInfo.bandName} on Spotify`}
+                >
+                  <FaSpotify style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
+                </a>
+              )}
+              {socialMedia.twitter && (
+                <a 
+                  href={socialMedia.twitter} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="social-link"
+                  style={{ 
+                    backgroundColor: '#8b0000',
+                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
+                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
+                  }}
+                  aria-label={`Follow ${bandInfo.bandName} on Twitter`}
+                >
+                  <FaTwitter style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
+                </a>
+              )}
+              {socialMedia.facebook && (
+                <a 
+                  href={socialMedia.facebook} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="social-link"
+                  style={{ 
+                    backgroundColor: '#8b0000',
+                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
+                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
+                  }}
+                  aria-label={`Follow ${bandInfo.bandName} on Facebook`}
+                >
+                  <FaFacebook style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
+                </a>
+              )}
+              {socialMedia.bandcamp && (
+                <a 
+                  href={socialMedia.bandcamp} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="social-link"
+                  style={{ 
+                    backgroundColor: '#8b0000',
+                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
+                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
+                  }}
+                  aria-label={`Listen to ${bandInfo.bandName} on Bandcamp`}
+                >
+                  <FaBandcamp style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
+                </a>
+              )}
             </div>
           </div>
-          <p style={{ 
-            marginTop: 'clamp(1.5rem, 4vw, 2rem)',
-            fontSize: 'clamp(1rem, 3vw, 1.125rem)',
-            color: '#e0e0e0',
-            fontFamily: 'Playfair Display, serif',
-            maxWidth: '600px',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            padding: '0 1rem',
-            lineHeight: '1.6'
-          }}>
-            Experience the haunting melodies of {bandInfo.bandName} in this performance of Carrie's Nightmare.
-          </p>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer
+        {/* YouTube Demo Section */}
+        <section style={{ 
+          padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem)', 
+          backgroundColor: '#1a1a1a' 
+        }}>
+          <div style={{ 
+            maxWidth: '72rem', 
+            margin: '0 auto', 
+            textAlign: 'center' 
+          }}>
+            <h2 className="section-title" style={{ 
+              fontSize: 'clamp(2rem, 6vw, 3rem)', 
+              marginBottom: 'clamp(1.5rem, 4vw, 2rem)', 
+              color: '#dc143c',
+              padding: '0 1rem'
+            }}>
+              Demo - Infest Digest
+            </h2>
+            <div style={{ 
+              position: 'relative',
+              width: '100%',
+              maxWidth: '800px',
+              margin: '0 auto',
+              borderRadius: '0.5rem',
+              overflow: 'hidden',
+              boxShadow: '0 25px 50px -12px rgba(139,0,0,0.4)',
+              border: '2px solid #8b0000'
+            }}>
+              <div style={{
+                position: 'relative',
+                paddingBottom: '56.25%', /* 16:9 aspect ratio */
+                height: 0,
+                overflow: 'hidden'
+              }}>
+                <iframe
+                  src="https://www.youtube.com/embed/YmdO-4pe3Hk?si=DA0agqxcyCFrtBCI"
+                  title={`${bandInfo.bandName} - Infest Digest Live Performance`}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    border: 0
+                  }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <p style={{ 
+              marginTop: 'clamp(1.5rem, 4vw, 2rem)',
+              fontSize: 'clamp(1rem, 3vw, 1.125rem)',
+              color: '#e0e0e0',
+              fontFamily: 'Playfair Display, serif',
+              maxWidth: '600px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              padding: '0 1rem',
+              lineHeight: '1.6'
+            }}>
+              Enjoy our new demo, Infest Digest.
+            </p>
+          </div>
+        </section>
+        
+        {/* Albums Section */}
+        {/* ... existing code ... */}
+        
+        {/* News Section */}
+        {/* ... existing code ... */}
+        
+        {/* Contact Section */}
+        {/* ... existing code ... */}
+      </main>
+
+      {/* Footer */}
       <footer style={{ 
         backgroundColor: '#1a1a1a', 
         padding: 'clamp(1.5rem, 4vw, 2rem) clamp(1rem, 4vw, 2rem)', 
@@ -334,9 +713,9 @@ export default function Home({ bandInfo, albums }) {
             fontFamily: 'Cinzel, serif',
             fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)'
           }}>
-            © 2024 {bandInfo.bandName}. All rights reserved.
+            © 2025 {bandInfo.bandName}. All rights reserved.
           </p>
-          <div style={{ 
+          {/* <div style={{ 
             display: 'flex', 
             justifyContent: 'center', 
             gap: 'clamp(0.5rem, 2vw, 1rem)',
@@ -363,9 +742,9 @@ export default function Home({ bandInfo, albums }) {
               transition: 'color 0.3s ease',
               fontSize: 'clamp(0.8rem, 2.5vw, 1rem)'
             }}>Press Kit</a>
-          </div>
+          </div> */}
         </div>
-      </footer> */}
+      </footer>
     </div>
   )
 }
@@ -373,11 +752,13 @@ export default function Home({ bandInfo, albums }) {
 export async function getStaticProps() {
   const bandInfo = getBandInfo()
   const albums = getAlbums()
+  const shows = getShows()
   
   return {
     props: {
       bandInfo,
-      albums
+      albums,
+      shows
     }
   }
 }

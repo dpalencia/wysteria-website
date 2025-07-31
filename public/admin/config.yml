@@ -60,8 +60,12 @@ collections:
       - {label: "Venue", name: "venue", widget: "string"}
       - {label: "Address", name: "address", widget: "string"}
       - {label: "City", name: "city", widget: "string"}
+      - {label: "Ticket Price", name: "ticketPrice", widget: "string", required: false}
       - {label: "Ticket Link", name: "ticketLink", widget: "string", required: false}
+      - {label: "Ticket Info", name: "ticketInfo", widget: "text", required: false, hint: "Additional information about tickets, such as where to purchase and availability"}
       - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Poster Image", name: "posterImage", widget: "image", required: false}
+      - {label: "Facebook Event", name: "facebookEvent", widget: "string", required: false}
       - {label: "Featured", name: "featured", widget: "boolean", default: false}
 
   - name: "news"
