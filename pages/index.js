@@ -134,7 +134,9 @@ export default function Home({ bandInfo, albums, shows }) {
       </Head>
 
       <main className="min-h-screen gothic-texture">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4" style={{ 
+          paddingTop: 'env(safe-area-inset-top, 0px)'
+        }}>
           {/* Navigation */}
           <nav style={{ 
             padding: 'clamp(1rem, 2vw, 1.5rem) 0', 

@@ -296,6 +296,7 @@ body {
 @media (max-width: 768px) {
   .hero-section {
     min-height: 500px;
+    padding-top: 100px; /* Increased from default padding */
   }
   
   .hero-content {
@@ -308,6 +309,11 @@ body {
   
   .gothic-subtitle {
     letter-spacing: 0.05em;
+  }
+  
+  /* Add padding to the top of the shows section on mobile */
+  #shows {
+    padding-top: 100px !important;
   }
 }
 
