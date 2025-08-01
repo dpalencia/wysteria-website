@@ -73,7 +73,7 @@ export default function Home({ bandInfo, albums, shows }) {
         <meta name="twitter:title" content={`${bandInfo.bandName} - Goth Band`} />
         <meta name="twitter:description" content={`${bandInfo.tagline} - Goth band from ${bandInfo.city}. Listen to our haunting melodies.`} />
         <meta name="twitter:image" content={bandInfo.heroImage} />
-]
+        
         {/* Music-specific Meta Tags */}
         <meta name="music:musician" content={bandInfo.bandName} />
         <meta name="music:genre" content="Goth" />
@@ -101,7 +101,7 @@ export default function Home({ bandInfo, albums, shows }) {
         <link rel="dns-prefetch" href="//bandcamp.com" />
       </Head>
 
-      <main className="min-h-screen">
+      <main className="min-h-screen gothic-texture">
         <div className="container mx-auto px-4">
           {/* Navigation */}
           <nav style={{ 
@@ -129,16 +129,18 @@ export default function Home({ bandInfo, albums, shows }) {
               padding: '0 1rem'
             }}>
               {/* Logo */}
-              <a href="/" style={{ 
-                fontSize: 'clamp(1.5rem, 4vw, 2rem)', 
-                color: '#ffffff', 
-                textDecoration: 'none', 
-                fontFamily: 'Cinzel, serif', 
-                fontWeight: 'bold', 
-                letterSpacing: '2px', 
-                textTransform: 'uppercase'
-              }}>
-                Wysteria
+              <a href="/" className="logo-container">
+                <img 
+                  src="/band-logo.jpeg" 
+                  alt={`${bandInfo.bandName} Logo`}
+                  className="nav-logo"
+                  style={{
+                    width: '100px',
+                    height: 'auto',
+                    maxWidth: '8rem'
+                  }}
+                />
+                <span className="sr-only">Wysteria</span>
               </a>
               
               {/* Navigation Links */}
@@ -305,11 +307,12 @@ export default function Home({ bandInfo, albums, shows }) {
 
         {/* Upcoming Show Section - Now First */}
         {upcomingShow && (
-          <section id="shows" style={{ 
+          <section id="shows" className="gothic-bg" style={{ 
             padding: 'clamp(5rem, 10vw, 7rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 8vw, 5rem)', // Increased top padding
             backgroundColor: '#000000',
             borderBottom: '1px solid #8b0000',
-            marginTop: '0' // Removed margin as we're using padding instead
+            marginTop: '0', // Removed margin as we're using padding instead
+            position: 'relative'
           }}>
             <div style={{ 
               maxWidth: '72rem', 
@@ -335,30 +338,14 @@ export default function Home({ bandInfo, albums, shows }) {
                   display: 'inline-block',
                   paddingBottom: '0.5rem',
                   borderBottom: '2px solid #8b0000'
-                }}>
+                }} className="glow-text">
                   Upcoming Show
                 </h2>
               </div>
               
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 'clamp(2rem, 5vw, 3rem)',
-                width: '100%',
-                '@media (min-width: 768px)': {
-                  flexDirection: 'row',
-                  alignItems: 'flex-start',
-                }
-              }}>
+              <div className="show-container">
                 {/* Show Poster */}
-                <div style={{
-                  flex: '0 0 auto',
-                  maxWidth: '100%',
-                  '@media (min-width: 768px)': {
-                    maxWidth: '40%',
-                  }
-                }}>
+                <div className="show-poster">
                   <img 
                     src={upcomingShow.posterImage} 
                     alt={`${upcomingShow.title} - Concert Poster`}
@@ -373,14 +360,7 @@ export default function Home({ bandInfo, albums, shows }) {
                 </div>
                 
                 {/* Show Details */}
-                <div style={{
-                  flex: '1',
-                  color: '#ffffff',
-                  textAlign: 'center',
-                  '@media (min-width: 768px)': {
-                    textAlign: 'left',
-                  }
-                }}>
+                <div className="show-details">
                   <h3 style={{
                     fontSize: 'clamp(2rem, 6vw, 3rem)',
                     color: '#dc143c',
@@ -501,15 +481,7 @@ export default function Home({ bandInfo, albums, shows }) {
                     </div>
                   )}
                   
-                  <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '1rem',
-                    justifyContent: 'center',
-                    '@media (min-width: 768px)': {
-                      justifyContent: 'flex-start',
-                    }
-                  }}>
+                  <div className="action-buttons">
                     {upcomingShow.facebookEvent && (
                       <a 
                         href={upcomingShow.facebookEvent}
@@ -542,7 +514,7 @@ export default function Home({ bandInfo, albums, shows }) {
         )}
 
         {/* Hero Section with Band Photo - Now Second */}
-        <section id="about" className="hero-section" style={{
+        <section id="about" className="hero-section gothic-bg-full" style={{
           paddingTop: '80px' // Add padding to account for the nav bar
         }}>
           <img 
@@ -553,7 +525,7 @@ export default function Home({ bandInfo, albums, shows }) {
           />
           <div className="hero-overlay"></div>
           <div className="hero-content">
-            <h1 className="gothic-title" style={{ 
+            <h1 className="gothic-title glow-text" style={{ 
               fontSize: 'clamp(2.5rem, 8vw, 4rem)', 
               marginBottom: '1rem', 
               color: '#ffffff',
@@ -696,16 +668,17 @@ export default function Home({ bandInfo, albums, shows }) {
         </section>
 
         {/* YouTube Demo Section */}
-        <section id="music" style={{ 
+        <section id="music" className="gothic-bg blood-drip" style={{ 
           padding: 'clamp(5rem, 10vw, 7rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 8vw, 5rem)', // Increased top padding
-          backgroundColor: '#1a1a1a' 
+          backgroundColor: '#1a1a1a',
+          position: 'relative'
         }}>
           <div style={{ 
             maxWidth: '72rem', 
             margin: '0 auto', 
             textAlign: 'center' 
           }}>
-            <h2 className="section-title" style={{ 
+            <h2 className="section-title glow-text" style={{ 
               fontSize: 'clamp(2rem, 6vw, 3rem)', 
               marginBottom: 'clamp(1.5rem, 4vw, 2rem)', 
               color: '#dc143c',
@@ -769,17 +742,18 @@ export default function Home({ bandInfo, albums, shows }) {
         {/* ... existing code ... */}
         
         {/* Contact Section */}
-        <section id="contact" style={{ 
+        <section id="contact" className="gothic-bg-full" style={{ 
           padding: 'clamp(5rem, 10vw, 7rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 8vw, 5rem)', // Increased top padding
           backgroundColor: '#1a1a1a',
-          borderTop: '1px solid #8b0000'
+          borderTop: '1px solid #8b0000',
+          position: 'relative'
         }}>
           <div style={{ 
             maxWidth: '72rem', 
             margin: '0 auto',
             textAlign: 'center' 
           }}>
-            <h2 className="section-title" style={{ 
+            <h2 className="section-title glow-text" style={{ 
               fontSize: 'clamp(2rem, 6vw, 3rem)', 
               marginBottom: 'clamp(1.5rem, 4vw, 2rem)', 
               color: '#dc143c',
@@ -945,10 +919,11 @@ export default function Home({ bandInfo, albums, shows }) {
       </main>
 
       {/* Footer */}
-      <footer style={{ 
+      <footer className="blood-drip" style={{ 
         backgroundColor: '#1a1a1a', 
         padding: 'clamp(1.5rem, 4vw, 2rem) clamp(1rem, 4vw, 2rem)', 
-        borderTop: '2px solid #8b0000' 
+        borderTop: '2px solid #8b0000',
+        position: 'relative'
       }}>
         <div style={{ 
           maxWidth: '64rem', 
@@ -976,13 +951,6 @@ export default function Home({ bandInfo, albums, shows }) {
               transition: 'color 0.3s ease',
               fontSize: 'clamp(0.8rem, 2.5vw, 1rem)'
             }}>Contact</a>
-            <a href="#" style={{ 
-              color: '#e0e0e0', 
-              textDecoration: 'none',
-              fontFamily: 'Playfair Display, serif',
-              transition: 'color 0.3s ease',
-              fontSize: 'clamp(0.8rem, 2.5vw, 1rem)'
-            }}>Privacy Policy</a>
           </div>
         </div>
       </footer>
