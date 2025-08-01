@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import { FaYoutube, FaInstagram, FaSpotify, FaTwitter, FaFacebook, FaBandcamp } from 'react-icons/fa'
 import { getBandInfo, getAlbums, getShows } from '../lib/cms'
+import { useState } from 'react'
 
 export default function Home({ bandInfo, albums, shows }) {
   const { socialMedia } = bandInfo
   const upcomingShow = shows && shows.length > 0 ? shows[0] : null;
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Structured data for SEO
   const structuredData = {
@@ -114,7 +116,8 @@ export default function Home({ bandInfo, albums, shows }) {
             right: 0,
             zIndex: 100,
             backdropFilter: 'blur(10px)',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            height: '80px' // Fixed height to match scroll-padding-top
           }}>
             <div style={{ 
               maxWidth: '72rem', 
@@ -122,8 +125,10 @@ export default function Home({ bandInfo, albums, shows }) {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              width: '100%'
+              width: '100%',
+              padding: '0 1rem'
             }}>
+              {/* Logo */}
               <a href="/" style={{ 
                 fontSize: 'clamp(1.5rem, 4vw, 2rem)', 
                 color: '#ffffff', 
@@ -135,107 +140,176 @@ export default function Home({ bandInfo, albums, shows }) {
               }}>
                 Wysteria
               </a>
-              <div style={{ 
-                display: 'flex', 
-                gap: 'clamp(1rem, 3vw, 2rem)', 
-                alignItems: 'center'
-              }}>
-                {socialMedia.youtube && (
-                  <a 
-                    href={socialMedia.youtube} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ 
-                      color: '#ffffff', 
-                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
-                    }}
-                    aria-label={`Follow ${bandInfo.bandName} on YouTube`}
-                  >
-                    <FaYoutube />
-                  </a>
-                )}
-                {socialMedia.instagram && (
-                  <a 
-                    href={socialMedia.instagram} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ 
-                      color: '#ffffff', 
-                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
-                    }}
-                    aria-label={`Follow ${bandInfo.bandName} on Instagram`}
-                  >
-                    <FaInstagram />
-                  </a>
-                )}
-                {socialMedia.spotify && (
-                  <a 
-                    href={socialMedia.spotify} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ 
-                      color: '#ffffff', 
-                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
-                    }}
-                    aria-label={`Listen to ${bandInfo.bandName} on Spotify`}
-                  >
-                    <FaSpotify />
-                  </a>
-                )}
-                {socialMedia.twitter && (
-                  <a 
-                    href={socialMedia.twitter} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ 
-                      color: '#ffffff', 
-                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
-                    }}
-                    aria-label={`Follow ${bandInfo.bandName} on Twitter`}
-                  >
-                    <FaTwitter />
-                  </a>
-                )}
-                {socialMedia.facebook && (
-                  <a 
-                    href={socialMedia.facebook} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ 
-                      color: '#ffffff', 
-                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
-                    }}
-                    aria-label={`Follow ${bandInfo.bandName} on Facebook`}
-                  >
-                    <FaFacebook />
-                  </a>
-                )}
-                {socialMedia.bandcamp && (
-                  <a 
-                    href={socialMedia.bandcamp} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ 
-                      color: '#ffffff', 
-                      fontSize: 'clamp(1.5rem, 4vw, 2rem)'
-                    }}
-                    aria-label={`Listen to ${bandInfo.bandName} on Bandcamp`}
-                  >
-                    <FaBandcamp />
-                  </a>
-                )}
+              
+              {/* Navigation Links */}
+              <div className="nav-links">
+                <a href="#shows" className="nav-link">Shows</a>
+                <a href="#about" className="nav-link">About</a>
+                <a href="#music" className="nav-link">Music</a>
+                <a href="#contact" className="nav-link">Contact</a>
               </div>
+              
+              {/* Social Media & Mobile Menu Toggle */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem'
+              }}>
+                {/* Social Media - Now visible on tablet and desktop */}
+                <div className="social-nav">
+                  {socialMedia.youtube && (
+                    <a 
+                      href={socialMedia.youtube} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="social-nav-link"
+                      aria-label={`Follow ${bandInfo.bandName} on YouTube`}
+                    >
+                      <FaYoutube />
+                    </a>
+                  )}
+                  {socialMedia.instagram && (
+                    <a 
+                      href={socialMedia.instagram} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="social-nav-link"
+                      aria-label={`Follow ${bandInfo.bandName} on Instagram`}
+                    >
+                      <FaInstagram />
+                    </a>
+                  )}
+                  {socialMedia.spotify && (
+                    <a 
+                      href={socialMedia.spotify} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="social-nav-link"
+                      aria-label={`Listen to ${bandInfo.bandName} on Spotify`}
+                    >
+                      <FaSpotify />
+                    </a>
+                  )}
+                  {socialMedia.facebook && (
+                    <a 
+                      href={socialMedia.facebook} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="social-nav-link"
+                      aria-label={`Follow ${bandInfo.bandName} on Facebook`}
+                    >
+                      <FaFacebook />
+                    </a>
+                  )}
+                  {socialMedia.bandcamp && (
+                    <a 
+                      href={socialMedia.bandcamp} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="social-nav-link"
+                      aria-label={`Listen to ${bandInfo.bandName} on Bandcamp`}
+                    >
+                      <FaBandcamp />
+                    </a>
+                  )}
+                </div>
+                
+                {/* Mobile Menu Button */}
+                <button 
+                  className="mobile-menu-toggle"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  aria-label="Toggle mobile menu"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+              </div>
+              
+              {/* Mobile Menu */}
+              {mobileMenuOpen && (
+                <div className="mobile-menu">
+                  <a href="#shows" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Shows</a>
+                  <a href="#about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>About</a>
+                  <a href="#music" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Music</a>
+                  <a href="#contact" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Contact</a>
+                  
+                  {/* Social Media in Mobile Menu */}
+                  <div style={{ 
+                    display: 'flex', 
+                    gap: '1rem',
+                    marginTop: '1.5rem',
+                    justifyContent: 'center'
+                  }}>
+                    {socialMedia.youtube && (
+                      <a 
+                        href={socialMedia.youtube} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="social-nav-link"
+                        aria-label={`Follow ${bandInfo.bandName} on YouTube`}
+                      >
+                        <FaYoutube />
+                      </a>
+                    )}
+                    {socialMedia.instagram && (
+                      <a 
+                        href={socialMedia.instagram} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="social-nav-link"
+                        aria-label={`Follow ${bandInfo.bandName} on Instagram`}
+                      >
+                        <FaInstagram />
+                      </a>
+                    )}
+                    {socialMedia.spotify && (
+                      <a 
+                        href={socialMedia.spotify} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="social-nav-link"
+                        aria-label={`Listen to ${bandInfo.bandName} on Spotify`}
+                      >
+                        <FaSpotify />
+                      </a>
+                    )}
+                    {socialMedia.facebook && (
+                      <a 
+                        href={socialMedia.facebook} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="social-nav-link"
+                        aria-label={`Follow ${bandInfo.bandName} on Facebook`}
+                      >
+                        <FaFacebook />
+                      </a>
+                    )}
+                    {socialMedia.bandcamp && (
+                      <a 
+                        href={socialMedia.bandcamp} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="social-nav-link"
+                        aria-label={`Listen to ${bandInfo.bandName} on Bandcamp`}
+                      >
+                        <FaBandcamp />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </nav>
         </div>
 
         {/* Upcoming Show Section - Now First */}
         {upcomingShow && (
-          <section style={{ 
-            padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem)', 
+          <section id="shows" style={{ 
+            padding: 'clamp(5rem, 10vw, 7rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 8vw, 5rem)', // Increased top padding
             backgroundColor: '#000000',
             borderBottom: '1px solid #8b0000',
-            marginTop: '60px' // Added margin to account for the nav
+            marginTop: '0' // Removed margin as we're using padding instead
           }}>
             <div style={{ 
               maxWidth: '72rem', 
@@ -468,7 +542,9 @@ export default function Home({ bandInfo, albums, shows }) {
         )}
 
         {/* Hero Section with Band Photo - Now Second */}
-        <section className="hero-section">
+        <section id="about" className="hero-section" style={{
+          paddingTop: '80px' // Add padding to account for the nav bar
+        }}>
           <img 
             src={bandInfo.heroImage} 
             alt={`${bandInfo.bandName} - Goth band photo`} 
@@ -620,8 +696,8 @@ export default function Home({ bandInfo, albums, shows }) {
         </section>
 
         {/* YouTube Demo Section */}
-        <section style={{ 
-          padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem)', 
+        <section id="music" style={{ 
+          padding: 'clamp(5rem, 10vw, 7rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 8vw, 5rem)', // Increased top padding
           backgroundColor: '#1a1a1a' 
         }}>
           <div style={{ 
@@ -693,7 +769,179 @@ export default function Home({ bandInfo, albums, shows }) {
         {/* ... existing code ... */}
         
         {/* Contact Section */}
-        {/* ... existing code ... */}
+        <section id="contact" style={{ 
+          padding: 'clamp(5rem, 10vw, 7rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 8vw, 5rem)', // Increased top padding
+          backgroundColor: '#1a1a1a',
+          borderTop: '1px solid #8b0000'
+        }}>
+          <div style={{ 
+            maxWidth: '72rem', 
+            margin: '0 auto',
+            textAlign: 'center' 
+          }}>
+            <h2 className="section-title" style={{ 
+              fontSize: 'clamp(2rem, 6vw, 3rem)', 
+              marginBottom: 'clamp(1.5rem, 4vw, 2rem)', 
+              color: '#dc143c',
+              padding: '0 1rem'
+            }}>
+              Contact Us
+            </h2>
+            <p style={{ 
+              fontSize: 'clamp(1rem, 3vw, 1.125rem)',
+              color: '#e0e0e0',
+              fontFamily: 'Playfair Display, serif',
+              maxWidth: '600px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              padding: '0 1rem',
+              marginBottom: 'clamp(2rem, 4vw, 3rem)',
+              lineHeight: '1.6'
+            }}>
+              Have questions or want to book us for a show? Having issues with ticket purchases? Send us a message and we'll get back to you as soon as possible.
+            </p>
+            
+            <form 
+              name="contact" 
+              method="POST" 
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              style={{
+                maxWidth: '600px',
+                margin: '0 auto',
+                textAlign: 'left',
+                padding: '0 1rem'
+              }}
+            >
+              <input type="hidden" name="form-name" value="contact" />
+              <div hidden>
+                <label>
+                  Don't fill this out if you're human: <input name="bot-field" />
+                </label>
+              </div>
+              
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label htmlFor="name" style={{ 
+                  display: 'block', 
+                  marginBottom: '0.5rem',
+                  color: '#e0e0e0',
+                  fontFamily: 'Cinzel, serif',
+                  fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)'
+                }}>
+                  Name
+                </label>
+                <input 
+                  type="text" 
+                  name="name" 
+                  id="name" 
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                    border: '1px solid #8b0000',
+                    borderRadius: '4px',
+                    color: '#ffffff',
+                    fontFamily: 'Playfair Display, serif',
+                    fontSize: '1rem'
+                  }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label htmlFor="email" style={{ 
+                  display: 'block', 
+                  marginBottom: '0.5rem',
+                  color: '#e0e0e0',
+                  fontFamily: 'Cinzel, serif',
+                  fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)'
+                }}>
+                  Email
+                </label>
+                <input 
+                  type="email" 
+                  name="email" 
+                  id="email" 
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                    border: '1px solid #8b0000',
+                    borderRadius: '4px',
+                    color: '#ffffff',
+                    fontFamily: 'Playfair Display, serif',
+                    fontSize: '1rem'
+                  }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label htmlFor="subject" style={{ 
+                  display: 'block', 
+                  marginBottom: '0.5rem',
+                  color: '#e0e0e0',
+                  fontFamily: 'Cinzel, serif',
+                  fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)'
+                }}>
+                  Subject
+                </label>
+                <input 
+                  type="text" 
+                  name="subject" 
+                  id="subject" 
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                    border: '1px solid #8b0000',
+                    borderRadius: '4px',
+                    color: '#ffffff',
+                    fontFamily: 'Playfair Display, serif',
+                    fontSize: '1rem'
+                  }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '2rem' }}>
+                <label htmlFor="message" style={{ 
+                  display: 'block', 
+                  marginBottom: '0.5rem',
+                  color: '#e0e0e0',
+                  fontFamily: 'Cinzel, serif',
+                  fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)'
+                }}>
+                  Message
+                </label>
+                <textarea 
+                  name="message" 
+                  id="message" 
+                  rows="5" 
+                  required
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                    border: '1px solid #8b0000',
+                    borderRadius: '4px',
+                    color: '#ffffff',
+                    fontFamily: 'Playfair Display, serif',
+                    fontSize: '1rem',
+                    resize: 'vertical'
+                  }}
+                ></textarea>
+              </div>
+              
+              <button 
+                type="submit"
+                className="contact-submit"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
@@ -715,20 +963,13 @@ export default function Home({ bandInfo, albums, shows }) {
           }}>
             © 2025 {bandInfo.bandName}. All rights reserved.
           </p>
-          {/* <div style={{ 
+          <div style={{ 
             display: 'flex', 
             justifyContent: 'center', 
             gap: 'clamp(0.5rem, 2vw, 1rem)',
             flexWrap: 'wrap'
           }}>
-            <a href="#" style={{ 
-              color: '#e0e0e0', 
-              textDecoration: 'none',
-              fontFamily: 'Playfair Display, serif',
-              transition: 'color 0.3s ease',
-              fontSize: 'clamp(0.8rem, 2.5vw, 1rem)'
-            }}>Privacy Policy</a>
-            <a href="#" style={{ 
+            <a href="#contact" style={{ 
               color: '#e0e0e0', 
               textDecoration: 'none',
               fontFamily: 'Playfair Display, serif',
@@ -741,8 +982,8 @@ export default function Home({ bandInfo, albums, shows }) {
               fontFamily: 'Playfair Display, serif',
               transition: 'color 0.3s ease',
               fontSize: 'clamp(0.8rem, 2.5vw, 1rem)'
-            }}>Press Kit</a>
-          </div> */}
+            }}>Privacy Policy</a>
+          </div>
         </div>
       </footer>
     </div>
