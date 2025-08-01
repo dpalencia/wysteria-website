@@ -1,12 +1,44 @@
 import Head from 'next/head'
 import { FaYoutube, FaInstagram, FaSpotify, FaTwitter, FaFacebook, FaBandcamp } from 'react-icons/fa'
 import { getBandInfo, getAlbums, getShows } from '../lib/cms'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Home({ bandInfo, albums, shows }) {
   const { socialMedia } = bandInfo
   const upcomingShow = shows && shows.length > 0 ? shows[0] : null;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState({ submitted: false, error: false });
+  
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(form)).toString(),
+    })
+      .then(() => {
+        setFormStatus({ submitted: true, error: false });
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("Form submission error:", error);
+        setFormStatus({ submitted: true, error: true });
+      });
+  };
+  
+  // Auto-hide form confirmation message after 5 seconds
+  useEffect(() => {
+    if (formStatus.submitted) {
+      const timer = setTimeout(() => {
+        setFormStatus({ submitted: false, error: false });
+      }, 5000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [formStatus.submitted]);
 
   // Structured data for SEO
   const structuredData = {
@@ -780,6 +812,7 @@ export default function Home({ bandInfo, albums, shows }) {
               method="POST" 
               data-netlify="true"
               netlify-honeypot="bot-field"
+              onSubmit={handleSubmit}
               style={{
                 maxWidth: '600px',
                 margin: '0 auto',
@@ -914,6 +947,40 @@ export default function Home({ bandInfo, albums, shows }) {
                 Send Message
               </button>
             </form>
+
+            {formStatus.submitted && (
+              <div className="form-confirmation" style={{
+                marginTop: '2rem',
+                padding: '1rem',
+                backgroundColor: formStatus.error ? 'rgba(220, 20, 60, 0.8)' : 'rgba(76, 175, 80, 0.8)',
+                color: '#ffffff',
+                borderRadius: '4px',
+                fontFamily: 'Cinzel, serif',
+                fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
+                position: 'relative',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                backdropFilter: 'blur(5px)'
+              }}>
+                <span>{formStatus.error ? 'Error sending message. Please try again later.' : 'Message sent successfully! We\'ll get back to you soon.'}</span>
+                <button 
+                  onClick={() => setFormStatus({ submitted: false, error: false })}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#ffffff',
+                    fontSize: '1.2rem',
+                    cursor: 'pointer',
+                    marginLeft: '1rem',
+                    padding: '0.2rem 0.5rem'
+                  }}
+                  aria-label="Close notification"
+                >
+                  ×
+                </button>
+              </div>
+            )}
           </div>
         </section>
       </main>
