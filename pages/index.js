@@ -73,7 +73,7 @@ export default function Home({ bandInfo, albums, shows }) {
     <div style={{ minHeight: '100vh', backgroundColor: '#000000' }}>
       <Head>
         {/* Basic SEO Meta Tags */}
-        <title>{bandInfo.bandName} - Gothic Band | Albuquerque, NM</title>
+        <title>{bandInfo.bandName} - Goth Band | Albuquerque, NM</title>
         <meta name="description" content={`${bandInfo.bandName} is a goth band from ${bandInfo.city}. Listen to our latest demo 'Infest Digest'.`} />
         <meta name="keywords" content="goth, gothic metal, gothic rock, dark wave, alternative rock, Albuquerque bands, New Mexico music, gothic music, dark rock, Wysteria, Infest Digest" />
         <meta name="author" content={bandInfo.bandName} />
@@ -701,6 +701,62 @@ export default function Home({ bandInfo, albums, shows }) {
           </div>
         </section>
 
+        {/* Drummer Wanted Section */}
+        <section className="gothic-bg" style={{ 
+          padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem)',
+          backgroundColor: '#000000',
+          borderTop: '1px solid #8b0000',
+          borderBottom: '1px solid #8b0000',
+          position: 'relative'
+        }}>
+          <div style={{ 
+            maxWidth: '72rem', 
+            margin: '0 auto',
+            textAlign: 'center' 
+          }}>
+            <h2 className="section-title glow-text" style={{ 
+              fontSize: 'clamp(1.8rem, 5vw, 2.5rem)', 
+              marginBottom: 'clamp(1rem, 3vw, 1.5rem)', 
+              color: '#dc143c',
+              padding: '0 1rem'
+            }}>
+              Drummer Wanted
+            </h2>
+            <p style={{ 
+              fontSize: 'clamp(1rem, 3vw, 1.125rem)',
+              color: '#e0e0e0',
+              fontFamily: 'Playfair Display, serif',
+              maxWidth: '600px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              padding: '0 1rem',
+              lineHeight: '1.6'
+            }}>
+              We are currently seeking a dedicated drummer to join our journey. If you're passionate about dark atmospheric music and have experience with gothic/post-punk drumming styles, we'd love to hear from you.
+            </p>
+            <a 
+              href="#contact" 
+              style={{
+                display: 'inline-block',
+                marginTop: 'clamp(1rem, 3vw, 1.5rem)',
+                padding: '0.75rem 1.5rem',
+                backgroundColor: '#8b0000',
+                color: '#ffffff',
+                textDecoration: 'none',
+                borderRadius: '4px',
+                fontFamily: 'Cinzel, serif',
+                fontWeight: 'bold',
+                fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                transition: 'background-color 0.3s ease',
+              }}
+            >
+              Contact Us
+            </a>
+          </div>
+        </section>
+
         {/* YouTube Demo Section */}
         <section id="music" className="gothic-bg blood-drip" style={{ 
           padding: 'clamp(5rem, 10vw, 7rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 8vw, 5rem)', // Increased top padding
@@ -874,6 +930,15 @@ export default function Home({ bandInfo, albums, shows }) {
                   required
                   style={{
                     width: '100%',
+
+
+
+
+
+
+
+
+                    
                     padding: '0.75rem',
                     backgroundColor: 'rgba(0, 0, 0, 0.3)',
                     border: '1px solid #8b0000',
