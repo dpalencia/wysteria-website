@@ -373,26 +373,11 @@ export default function Home({ bandInfo, albums, shows }) {
                   paddingBottom: '0.5rem',
                   borderBottom: '2px solid #8b0000'
                 }} className="glow-text">
-                  Upcoming Show
+                  Shows
                 </h2>
               </div>
               
               <div className="show-container">
-                {/* Show Poster */}
-                <div className="show-poster">
-                  <img 
-                    src={upcomingShow.posterImage} 
-                    alt={`${upcomingShow.title} - Concert Poster`}
-                    style={{
-                      width: '100%',
-                      maxWidth: '800px',
-                      height: 'auto',
-                      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.5)',
-                      border: '1px solid #8b0000',
-                    }}
-                  />
-                </div>
-                
                 {/* Show Details */}
                 <div className="show-details">
                   <h3 style={{
@@ -404,46 +389,7 @@ export default function Home({ bandInfo, albums, shows }) {
                     {upcomingShow.title}
                   </h3>
                   
-                  <div style={{
-                    marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
-                    fontSize: 'clamp(1.1rem, 2.5vw, 1.3rem)',
-                    color: '#e0e0e0',
-                    fontFamily: 'Playfair Display, serif',
-                  }}>
-                    <p style={{ marginBottom: '0.5rem' }}>
-                      <strong>Date:</strong> {(() => {
-                        // Parse the date and ensure it doesn't get affected by timezone
-                        const dateParts = upcomingShow.date.split('-');
-                        const year = parseInt(dateParts[0]);
-                        const month = parseInt(dateParts[1]) - 1; // Months are 0-indexed in JS
-                        const day = parseInt(dateParts[2]);
-                        const eventDate = new Date(year, month, day);
-                        
-                        return eventDate.toLocaleDateString('en-US', { 
-                          weekday: 'long', 
-                          year: 'numeric', 
-                          month: 'long', 
-                          day: 'numeric' 
-                        });
-                      })()}
-                    </p>
-                    <p style={{ marginBottom: '0.5rem' }}>
-                      <strong>Time:</strong> {upcomingShow.time}
-                    </p>
-                    <p style={{ marginBottom: '0.5rem' }}>
-                      <strong>Venue:</strong> {upcomingShow.venue}
-                    </p>
-                    <p style={{ marginBottom: '0.5rem' }}>
-                      <strong>Address:</strong> {upcomingShow.address}
-                    </p>
-                    {upcomingShow.ticketPrice && (
-                      <p style={{ marginBottom: '0.5rem' }}>
-                        <strong>Tickets:</strong> {upcomingShow.ticketPrice}
-                      </p>
-                    )}
-                  </div>
-                  
-                  <p style={{
+                  <h3 style={{
                     fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
                     color: '#e0e0e0',
                     marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
@@ -451,96 +397,7 @@ export default function Home({ bandInfo, albums, shows }) {
                     fontFamily: 'Playfair Display, serif',
                   }}>
                     {upcomingShow.description}
-                  </p>
-                  
-                  {/* Ticket Info Section */}
-                  {upcomingShow.ticketPrice && (
-                    <div style={{
-                      marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
-                      padding: '1rem',
-                      backgroundColor: 'rgba(139, 0, 0, 0.2)',
-                      borderLeft: '4px solid #dc143c',
-                      borderRadius: '4px',
-                    }}>
-                      <h4 style={{
-                        fontSize: 'clamp(1.1rem, 2.5vw, 1.3rem)',
-                        color: '#dc143c',
-                        marginTop: 0,
-                        marginBottom: '0.5rem',
-                        fontFamily: 'Cinzel, serif',
-                      }}>
-                        Ticket Information
-                      </h4>
-                      <p style={{
-                        fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
-                        color: '#e0e0e0',
-                        marginBottom: '0.5rem',
-                        fontFamily: 'Playfair Display, serif',
-                      }}>
-                        <strong>Price:</strong> {upcomingShow.ticketPrice}
-                      </p>
-                      <p style={{
-                        fontSize: 'clamp(0.9rem, 2vw, 1.1rem)',
-                        color: '#e0e0e0',
-                        marginBottom: '0.5rem',
-                        fontFamily: 'Playfair Display, serif',
-                        lineHeight: '1.6',
-                      }}>
-                        {upcomingShow.ticketInfo || "Purchase tickets in advance for a discounted rate. Limited tickets available at the door."}
-                      </p>
-                      {upcomingShow.ticketLink && (
-                        <a 
-                          href={upcomingShow.ticketLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            display: 'inline-block',
-                            padding: '0.5rem 1rem',
-                            marginTop: '0.5rem',
-                            backgroundColor: '#dc143c',
-                            color: '#ffffff',
-                            textDecoration: 'none',
-                            borderRadius: '4px',
-                            fontFamily: 'Cinzel, serif',
-                            fontWeight: 'bold',
-                            fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
-                            textTransform: 'uppercase',
-                            letterSpacing: '1px',
-                            transition: 'background-color 0.3s ease',
-                          }}
-                        >
-                          Purchase Tickets
-                        </a>
-                      )}
-                    </div>
-                  )}
-                  
-                  <div className="action-buttons">
-                    {upcomingShow.facebookEvent && (
-                      <a 
-                        href={upcomingShow.facebookEvent}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.5rem',
-                          padding: '0.75rem 1.5rem',
-                          backgroundColor: '#3b5998',
-                          color: '#ffffff',
-                          textDecoration: 'none',
-                          borderRadius: '4px',
-                          fontFamily: 'Cinzel, serif',
-                          fontWeight: 'bold',
-                          textTransform: 'uppercase',
-                          letterSpacing: '1px',
-                          transition: 'background-color 0.3s ease',
-                        }}
-                      >
-                        <FaFacebook /> Facebook Event
-                      </a>
-                    )}
-                  </div>
+                  </h3>
                 </div>
               </div>
             </div>
