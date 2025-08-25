@@ -22,6 +22,8 @@ body {
   position: relative;
   height: 100vh; /* Back to full viewport height */
   padding-top: 60px; /* Use padding instead of margin */
+  padding-bottom: 0;
+  margin-bottom: 0;
   min-height: 600px;
   display: flex;
   align-items: center;
@@ -311,10 +313,7 @@ body {
     letter-spacing: 0.05em;
   }
   
-  /* Add padding to the top of the shows section on mobile */
-  #shows {
-    padding-top: 100px !important;
-  }
+
 }
 
 /* Tablet adjustments */

@@ -1,0 +1,129 @@
+.showsSection {
+  position: relative;
+  padding-bottom: clamp(3rem, 8vw, 5rem);
+  padding-top: 0;
+  border-bottom: 1px solid #8b0000;
+  margin-top: -2rem; /* Create negative margin to pull up into hero section */
+  border-top: none;
+  overflow: hidden;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2; /* Ensure it's above the hero section */
+}
+
+.galleryContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.sectionTitle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 2rem clamp(1rem, 4vw, 2rem);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.title {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: #dc143c;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #8b0000;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.textBoxContainer {
+  position: absolute;
+  bottom: clamp(2rem, 5vw, 4rem);
+  left: clamp(2rem, 5vw, 4rem);
+  z-index: 2;
+  max-width: 400px;
+  width: 40%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.textBox {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: 8px;
+  border: 1px solid rgba(139, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  width: 100%;
+}
+
+.showTitle {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  color: #dc143c;
+  margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
+  font-family: 'Cinzel', serif;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.9);
+  text-align: left;
+}
+
+.showDescription {
+  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+  color: #ffffff;
+  margin-bottom: 0;
+  line-height: 1.6;
+  font-family: 'Playfair Display', serif;
+  text-align: left;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .showsSection {
+    display: block;
+    padding-bottom: 2rem;
+  }
+  
+  .galleryContainer {
+    height: 60vh;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .textBoxContainer {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+    margin-top: 2rem;
+  }
+  
+  .showTitle, .showDescription {
+    text-align: center;
+  }
+}

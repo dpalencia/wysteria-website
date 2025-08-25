@@ -1,0 +1,170 @@
+.galleryContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.galleryOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.gallerySlide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.galleryImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  background-color: #000;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 0;
+}
+
+.galleryImage.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.galleryNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(139, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 16px;
+  font-size: 18px;
+  z-index: 2;
+  transition: background-color 0.3s ease;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.galleryNav:hover {
+  background-color: rgba(220, 20, 60, 0.8);
+}
+
+.prev {
+  left: 20px;
+}
+
+.next {
+  right: 20px;
+}
+
+.galleryDots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+.dot {
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.activeDot, .dot:hover {
+  background-color: #dc143c;
+}
+
+.loadingSpinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #dc143c;
+  font-size: 24px;
+  font-family: 'Cinzel', serif;
+}
+
+.errorMessage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #dc143c;
+  font-size: 24px;
+  font-family: 'Cinzel', serif;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #8b0000;
+  box-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
+}
+
+/* Add a gothic overlay pattern */
+.galleryContainer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M0 0h40v40H0V0z' fill='none'/%3E%3Cpath d='M0 0h2v2H0V0zm4 0h2v2H4V0zm4 0h2v2H8V0zm4 0h2v2h-2V0zm4 0h2v2h-2V0zm4 0h2v2h-2V0zm4 0h2v2h-2V0zm4 0h2v2h-2V0zm4 0h2v2h-2V0zm4 0h2v2h-2V0z' fill='%23800000' fill-opacity='0.15'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .galleryNav {
+    padding: 12px;
+    font-size: 14px;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+  
+  .dot {
+    height: 8px;
+    width: 8px;
+    margin: 0 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .galleryContainer {
+    height: 70vh;
+  }
+}

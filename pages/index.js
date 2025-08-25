@@ -2,6 +2,8 @@ import Head from 'next/head'
 import { FaYoutube, FaInstagram, FaSpotify, FaTwitter, FaFacebook, FaBandcamp } from 'react-icons/fa'
 import { getBandInfo, getAlbums, getShows } from '../lib/cms'
 import { useState, useEffect } from 'react'
+import HeroSection from '../components/HeroSection'
+import ShowsSection from '../components/ShowsSection'
 
 export default function Home({ bandInfo, albums, shows }) {
   const { socialMedia } = bandInfo
@@ -179,8 +181,8 @@ export default function Home({ bandInfo, albums, shows }) {
               
               {/* Navigation Links */}
               <div className="nav-links">
-                <a href="#shows" className="nav-link">Shows</a>
-                <a href="#about" className="nav-link">About</a>
+              <a href="#about" className="nav-link">About</a>
+                <a href="#shows" className="nav-link">Shows</a>                
                 <a href="#music" className="nav-link">Music</a>
                 <a href="#contact" className="nav-link">Contact</a>
               </div>
@@ -339,225 +341,14 @@ export default function Home({ bandInfo, albums, shows }) {
           </nav>
         </div>
 
-        {/* Upcoming Show Section - Now First */}
-        {upcomingShow && (
-          <section id="shows" className="gothic-bg" style={{ 
-            padding: 'clamp(5rem, 10vw, 7rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 8vw, 5rem)', // Increased top padding
-            backgroundColor: '#000000',
-            borderBottom: '1px solid #8b0000',
-            marginTop: '0', // Removed margin as we're using padding instead
-            position: 'relative'
-          }}>
-            <div style={{ 
-              maxWidth: '72rem', 
-              margin: '0 auto',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center'
-            }}>
-              <div style={{
-                marginBottom: 'clamp(2rem, 4vw, 3rem)',
-                textAlign: 'center',
-                position: 'relative',
-                width: '100%'
-              }}>
-                <h2 style={{
-                  fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
-                  color: '#dc143c',
-                  margin: '0',
-                  textTransform: 'uppercase',
-                  letterSpacing: '3px',
-                  fontFamily: 'Cinzel, serif',
-                  fontWeight: '700',
-                  display: 'inline-block',
-                  paddingBottom: '0.5rem',
-                  borderBottom: '2px solid #8b0000'
-                }} className="glow-text">
-                  Shows
-                </h2>
-              </div>
-              
-              <div className="show-container">
-                {/* Show Details */}
-                <div className="show-details">
-                  <h3 style={{
-                    fontSize: 'clamp(2rem, 6vw, 3rem)',
-                    color: '#dc143c',
-                    marginBottom: 'clamp(1rem, 2vw, 1.5rem)',
-                    fontFamily: 'Cinzel, serif',
-                  }}>
-                    {upcomingShow.title}
-                  </h3>
-                  
-                  <h3 style={{
-                    fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-                    color: '#e0e0e0',
-                    marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
-                    lineHeight: '1.6',
-                    fontFamily: 'Playfair Display, serif',
-                  }}>
-                    {upcomingShow.description}
-                  </h3>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Hero Section with Band Photo - Now Second */}
-        <section id="about" className="hero-section gothic-bg-full" style={{
-          paddingTop: '80px' // Add padding to account for the nav bar
-        }}>
-          <img 
-            src={bandInfo.heroImage} 
-            alt={`${bandInfo.bandName} - Goth band photo`} 
-            className="hero-image"
-            loading="eager"
-          />
-          <div className="hero-overlay"></div>
-          <div className="hero-content">
-            <h1 className="gothic-title glow-text" style={{ 
-              fontSize: 'clamp(2.5rem, 8vw, 4rem)', 
-              marginBottom: '1rem', 
-              color: '#ffffff',
-              textAlign: 'center',
-              padding: '0 1rem'
-            }}>
-              {bandInfo.bandName.toUpperCase()}
-            </h1>
-            <p className="gothic-subtitle" style={{ 
-              fontSize: 'clamp(1rem, 4vw, 1.5rem)', 
-              color: '#dc143c', 
-              marginBottom: '2rem', 
-              maxWidth: '32rem',
-              textAlign: 'center',
-              padding: '0 1rem',
-              marginLeft: 'auto',
-              marginRight: 'auto'
-            }}>
-              {bandInfo.tagline}
-            </p>
-            <p style={{ 
-              fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)', 
-              color: '#e0e0e0', 
-              marginBottom: 'clamp(1.5rem, 4vw, 2rem)', 
-              maxWidth: '40rem',
-              textAlign: 'center',
-              padding: '0 1rem',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              fontFamily: 'Playfair Display, serif',
-              lineHeight: '1.6',
-              fontStyle: 'italic'
-            }}>
-              {bandInfo.about.replace(/<[^>]*>/g, '')}
-            </p>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              gap: 'clamp(0.5rem, 2vw, 1rem)', 
-              flexWrap: 'wrap',
-              padding: '0 1rem'
-            }}>
-              {socialMedia.youtube && (
-                <a 
-                  href={socialMedia.youtube} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  style={{
-                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                  }}
-                  aria-label={`Follow ${bandInfo.bandName} on YouTube`}
-                >
-                  <FaYoutube style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-                </a>
-              )}
-              {socialMedia.instagram && (
-                <a 
-                  href={socialMedia.instagram} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  style={{ 
-                    background: 'linear-gradient(45deg, #8b0000, #dc143c)',
-                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                  }}
-                  aria-label={`Follow ${bandInfo.bandName} on Instagram`}
-                >
-                  <FaInstagram style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-                </a>
-              )}
-              {socialMedia.spotify && (
-                <a 
-                  href={socialMedia.spotify} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  style={{ 
-                    backgroundColor: '#8b0000',
-                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                  }}
-                  aria-label={`Listen to ${bandInfo.bandName} on Spotify`}
-                >
-                  <FaSpotify style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-                </a>
-              )}
-              {socialMedia.twitter && (
-                <a 
-                  href={socialMedia.twitter} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  style={{ 
-                    backgroundColor: '#8b0000',
-                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                  }}
-                  aria-label={`Follow ${bandInfo.bandName} on Twitter`}
-                >
-                  <FaTwitter style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-                </a>
-              )}
-              {socialMedia.facebook && (
-                <a 
-                  href={socialMedia.facebook} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  style={{ 
-                    backgroundColor: '#8b0000',
-                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                  }}
-                  aria-label={`Follow ${bandInfo.bandName} on Facebook`}
-                >
-                  <FaFacebook style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-                </a>
-              )}
-              {socialMedia.bandcamp && (
-                <a 
-                  href={socialMedia.bandcamp} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  style={{ 
-                    backgroundColor: '#8b0000',
-                    width: 'clamp(2.5rem, 8vw, 3.5rem)',
-                    height: 'clamp(2.5rem, 8vw, 3.5rem)'
-                  }}
-                  aria-label={`Listen to ${bandInfo.bandName} on Bandcamp`}
-                >
-                  <FaBandcamp style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
-                </a>
-              )}
-            </div>
-          </div>
-        </section>
-
+        <div style={{ position: 'relative' }}>
+          {/* Hero Section with Band Photo */}
+          <HeroSection bandInfo={bandInfo} socialMedia={socialMedia} />
+          
+          {/* Upcoming Show Section with Gallery Background - Positioned to overlap */}
+          <ShowsSection upcomingShow={upcomingShow} />
+        </div>
+        
         {/* Drummer Wanted Section */}
         <section className="gothic-bg" style={{ 
           padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem)',
