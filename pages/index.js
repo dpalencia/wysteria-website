@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { FaYoutube, FaInstagram, FaSpotify, FaTwitter, FaFacebook, FaBandcamp } from 'react-icons/fa'
+import { FaYoutube, FaInstagram, FaSpotify, FaTwitter, FaFacebook, FaBandcamp, FaTiktok } from 'react-icons/fa'
 import { getBandInfo, getAlbums, getShows } from '../lib/cms'
 import { useState, useEffect } from 'react'
 import HeroSection from '../components/HeroSection'
@@ -62,7 +62,8 @@ export default function Home({ bandInfo, albums, shows }) {
       socialMedia.spotify,
       socialMedia.twitter,
       socialMedia.facebook,
-      socialMedia.bandcamp
+      socialMedia.bandcamp,
+      socialMedia.tiktok
     ].filter(Boolean),
     "image": bandInfo.heroImage,
     "potentialAction": {
@@ -133,6 +134,7 @@ export default function Home({ bandInfo, albums, shows }) {
         <link rel="dns-prefetch" href="//twitter.com" />
         <link rel="dns-prefetch" href="//facebook.com" />
         <link rel="dns-prefetch" href="//bandcamp.com" />
+        <link rel="dns-prefetch" href="//tiktok.com" />
       </Head>
 
       <main className="min-h-screen gothic-texture">
@@ -250,6 +252,17 @@ export default function Home({ bandInfo, albums, shows }) {
                       <FaBandcamp />
                     </a>
                   )}
+                  {socialMedia.tiktok && (
+                    <a 
+                      href={socialMedia.tiktok} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="social-nav-link"
+                      aria-label={`Follow ${bandInfo.bandName} on TikTok`}
+                    >
+                      <FaTiktok />
+                    </a>
+                  )}
                 </div>
                 
                 {/* Mobile Menu Button */}
@@ -332,6 +345,17 @@ export default function Home({ bandInfo, albums, shows }) {
                         aria-label={`Listen to ${bandInfo.bandName} on Bandcamp`}
                       >
                         <FaBandcamp />
+                      </a>
+                    )}
+                    {socialMedia.tiktok && (
+                      <a 
+                        href={socialMedia.tiktok} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="social-nav-link"
+                        aria-label={`Follow ${bandInfo.bandName} on TikTok`}
+                      >
+                        <FaTiktok />
                       </a>
                     )}
                   </div>

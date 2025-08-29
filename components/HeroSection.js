@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaYoutube, FaInstagram, FaSpotify, FaTwitter, FaFacebook, FaBandcamp } from 'react-icons/fa';
+import { FaYoutube, FaInstagram, FaSpotify, FaTwitter, FaFacebook, FaBandcamp, FaTiktok } from 'react-icons/fa';
 
 export default function HeroSection({ bandInfo, socialMedia }) {
   return (
@@ -154,6 +154,22 @@ export default function HeroSection({ bandInfo, socialMedia }) {
               aria-label={`Listen to ${bandInfo.bandName} on Bandcamp`}
             >
               <FaBandcamp style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
+            </a>
+          )}
+          {socialMedia.tiktok && (
+            <a 
+              href={socialMedia.tiktok} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="social-link"
+              style={{ 
+                backgroundColor: '#8b0000',
+                width: 'clamp(2.5rem, 8vw, 3.5rem)',
+                height: 'clamp(2.5rem, 8vw, 3.5rem)'
+              }}
+              aria-label={`Follow ${bandInfo.bandName} on TikTok`}
+            >
+              <FaTiktok style={{ fontSize: 'clamp(1rem, 3vw, 1.5rem)' }} />
             </a>
           )}
         </div>

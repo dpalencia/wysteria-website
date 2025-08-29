@@ -13,4 +13,5 @@ socialMedia:
   twitter: ""
   facebook: "https://www.facebook.com/share/1G2mRRT2a4/"
   bandcamp: ""
+  tiktok: "https://www.tiktok.com/@wysteria505?_t=ZP-8zHvLAjFwkw&_r=1"
 --- 
