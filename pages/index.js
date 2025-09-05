@@ -4,6 +4,7 @@ import { getBandInfo, getAlbums, getShows } from '../lib/cms'
 import { useState, useEffect } from 'react'
 import HeroSection from '../components/HeroSection'
 import ShowsSection from '../components/ShowsSection'
+import GallerySection from '../components/GallerySection'
 
 export default function Home({ bandInfo, albums, shows }) {
   const { socialMedia } = bandInfo
@@ -183,8 +184,9 @@ export default function Home({ bandInfo, albums, shows }) {
               
               {/* Navigation Links */}
               <div className="nav-links">
-              <a href="#about" className="nav-link">About</a>
-                <a href="#shows" className="nav-link">Shows</a>                
+                <a href="#about" className="nav-link">About</a>
+                <a href="#shows" className="nav-link">Shows</a>
+                <a href="#gallery" className="nav-link">Gallery</a>
                 <a href="#music" className="nav-link">Music</a>
                 <a href="#contact" className="nav-link">Contact</a>
               </div>
@@ -282,6 +284,7 @@ export default function Home({ bandInfo, albums, shows }) {
                 <div className="mobile-menu">
                   <a href="#shows" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Shows</a>
                   <a href="#about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>About</a>
+                  <a href="#gallery" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Gallery</a>
                   <a href="#music" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Music</a>
                   <a href="#contact" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Contact</a>
                   
@@ -369,65 +372,68 @@ export default function Home({ bandInfo, albums, shows }) {
           {/* Hero Section with Band Photo */}
           <HeroSection bandInfo={bandInfo} socialMedia={socialMedia} />
           
+          {/* Drummer Wanted Section - Moved here to be right after About section */}
+          <section className="gothic-bg" style={{ 
+            padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem)',
+            backgroundColor: '#000000',
+            borderTop: '1px solid #8b0000',
+            borderBottom: '1px solid #8b0000',
+            position: 'relative'
+          }}>
+            <div style={{ 
+              maxWidth: '72rem', 
+              margin: '0 auto',
+              textAlign: 'center' 
+            }}>
+              <h2 className="section-title glow-text" style={{ 
+                fontSize: 'clamp(1.8rem, 5vw, 2.5rem)', 
+                marginBottom: 'clamp(1rem, 3vw, 1.5rem)', 
+                color: '#dc143c',
+                padding: '0 1rem'
+              }}>
+                Drummer Wanted
+              </h2>
+              <p style={{ 
+                fontSize: 'clamp(1rem, 3vw, 1.125rem)',
+                color: '#e0e0e0',
+                fontFamily: 'Playfair Display, serif',
+                maxWidth: '600px',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                padding: '0 1rem',
+                lineHeight: '1.6'
+              }}>
+                We are currently seeking a dedicated drummer to join our journey. If you're passionate about dark atmospheric music and have experience with gothic/post-punk drumming styles, we'd love to hear from you.
+              </p>
+              <a 
+                href="#contact" 
+                style={{
+                  display: 'inline-block',
+                  marginTop: 'clamp(1rem, 3vw, 1.5rem)',
+                  padding: '0.75rem 1.5rem',
+                  backgroundColor: '#8b0000',
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  borderRadius: '4px',
+                  fontFamily: 'Cinzel, serif',
+                  fontWeight: 'bold',
+                  fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  transition: 'background-color 0.3s ease',
+                }}
+              >
+                Contact Us
+              </a>
+            </div>
+          </section>
+          
           {/* Upcoming Show Section with Gallery Background - Positioned to overlap */}
           <ShowsSection upcomingShow={upcomingShow} />
         </div>
         
-        {/* Drummer Wanted Section */}
-        <section className="gothic-bg" style={{ 
-          padding: 'clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem)',
-          backgroundColor: '#000000',
-          borderTop: '1px solid #8b0000',
-          borderBottom: '1px solid #8b0000',
-          position: 'relative'
-        }}>
-          <div style={{ 
-            maxWidth: '72rem', 
-            margin: '0 auto',
-            textAlign: 'center' 
-          }}>
-            <h2 className="section-title glow-text" style={{ 
-              fontSize: 'clamp(1.8rem, 5vw, 2.5rem)', 
-              marginBottom: 'clamp(1rem, 3vw, 1.5rem)', 
-              color: '#dc143c',
-              padding: '0 1rem'
-            }}>
-              Drummer Wanted
-            </h2>
-            <p style={{ 
-              fontSize: 'clamp(1rem, 3vw, 1.125rem)',
-              color: '#e0e0e0',
-              fontFamily: 'Playfair Display, serif',
-              maxWidth: '600px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              padding: '0 1rem',
-              lineHeight: '1.6'
-            }}>
-              We are currently seeking a dedicated drummer to join our journey. If you're passionate about dark atmospheric music and have experience with gothic/post-punk drumming styles, we'd love to hear from you.
-            </p>
-            <a 
-              href="#contact" 
-              style={{
-                display: 'inline-block',
-                marginTop: 'clamp(1rem, 3vw, 1.5rem)',
-                padding: '0.75rem 1.5rem',
-                backgroundColor: '#8b0000',
-                color: '#ffffff',
-                textDecoration: 'none',
-                borderRadius: '4px',
-                fontFamily: 'Cinzel, serif',
-                fontWeight: 'bold',
-                fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                transition: 'background-color 0.3s ease',
-              }}
-            >
-              Contact Us
-            </a>
-          </div>
-        </section>
+        {/* Gallery Section */}
+        <GallerySection />
 
         {/* YouTube Demo Section */}
         <section id="music" className="gothic-bg blood-drip" style={{ 
