@@ -29,39 +29,72 @@ export default function ShowsSection({ upcomingShow }) {
         {/* Dark Background */}
         <div className={styles.darkBackground}></div>
         
-        {/* Poster as Foreground Element */}
-        <div className={styles.posterContainer}>
-          <img 
-            src="/halloween-poster.png"
-            alt="Halloween Party Poster"
-            className={styles.posterImage}
-          />
-        </div>
-      
-      {/* Text Box */}
-      <div className={styles.textBoxContainer}>
-        <div className={styles.textBox}>
-          <h3 className={styles.showTitle}>
-            Halloween Night Party at Expressions
-          </h3>
+        <div className={styles.showsContainer}>
+          {/* First Show */}
+          <div className={styles.showItem}>
+            {/* Poster as Foreground Element */}
+            <div className={styles.posterContainer}>
+              <img 
+                src="/halloween-poster.png"
+                alt="Halloween Party Poster"
+                className={styles.posterImage}
+              />
+            </div>
           
-          <div className={styles.showDetails}>
-            <p>October 31st</p>
-            <p>18+ Only</p>
-            <p>6PM-10PM</p>
-            <p>Expressions Artist Community, 303 Rio Grande NW</p>
-            <a 
-              href="https://square.link/u/eRDWEia1?src=webqr" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.ticketButton}
-            >
-              Purchase Tickets
-            </a>
+            {/* Text Box */}
+            <div className={styles.textBoxContainer}>
+              <div className={styles.textBox}>
+                <h3 className={styles.showTitle}>
+                  Halloween Night Party at Expressions
+                </h3>
+                
+                <div className={styles.showDetails}>
+                  <p>October 31st</p>
+                  <p>18+ Only</p>
+                  <p>6PM-10PM</p>
+                  <p>Expressions Artist Community, 303 Rio Grande NW</p>
+                  <a 
+                    href="https://square.link/u/eRDWEia1?src=webqr" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.ticketButton}
+                  >
+                    Purchase Tickets
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Second Show - Revel Event */}
+          <div className={styles.showItem}>
+            {/* Poster as Foreground Element */}
+            <div className={styles.posterContainer}>
+              <img 
+                src="/revel-flyer.png"
+                alt="Revel Mural Unveiling Event Poster"
+                className={styles.posterImage}
+              />
+            </div>
+          
+            {/* Text Box */}
+            <div className={styles.textBoxContainer}>
+              <div className={styles.textBox}>
+                <h3 className={styles.showTitle}>
+                  Mural Unveling at Revel
+                </h3>
+                
+                <div className={styles.showDetails}>
+                  <p>November 1st, 2025</p>
+                  <p>6PM</p>
+                  <p>No Cover</p>
+                  <p>Revel Entertainment Center Main Stage, Albuquerque</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
   );
 }
