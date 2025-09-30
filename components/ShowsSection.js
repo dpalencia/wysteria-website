@@ -30,7 +30,65 @@ export default function ShowsSection({ upcomingShow }) {
         <div className={styles.darkBackground}></div>
         
         <div className={styles.showsContainer}>
-          {/* First Show */}
+          {/* First Show - Revel Event */}
+          <div className={styles.showItem}>
+            {/* Poster as Foreground Element */}
+            <div className={styles.posterContainer}>
+              <img 
+                src="/revel-flyer.png"
+                alt="Revel Mural Unveiling Event Poster"
+                className={styles.posterImage}
+              />
+            </div>
+          
+            {/* Text Box */}
+            <div className={styles.textBoxContainer}>
+              <div className={styles.textBox}>
+                <h3 className={styles.showTitle}>
+                  Mural Unveling at Revel
+                </h3>
+                
+                <div className={styles.showDetails}>
+                  <p>November 1st, 2025</p>
+                  <p>6PM</p>
+                  <p>No Cover</p>
+                  <p>Revel Entertainment Center Main Stage, Albuquerque</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Second Show - Witching Hour */}
+          <div className={styles.showItem}>
+            {/* Poster as Foreground Element */}
+            <div className={styles.posterContainer}>
+              <img 
+                src="/witching-hour-flyer.png"
+                alt="The Witching Hour Goth Night Poster"
+                className={styles.posterImage}
+              />
+            </div>
+          
+            {/* Text Box */}
+            <div className={styles.textBoxContainer}>
+              <div className={styles.textBox}>
+                <h3 className={styles.showTitle}>
+                  The Witching Hour Goth Night
+                </h3>
+                
+                <div className={styles.showDetails}>
+                  <p>October 23rd, 2025</p>
+                  <p>7PM</p>
+                  <p>21+ Only</p>
+                  <p>$10 cover</p>
+                  <p>Launchpad ABQ - 622 Central Ave SW, Albuquerque, NM</p>
+                  <p className={styles.showDescription}>Step into the darkness for an evening of goth music. Featuring Wysteria, Funeral Process, Zero Batz, and DJ DSTRBNCE</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Third Show - Halloween */}
           <div className={styles.showItem}>
             {/* Poster as Foreground Element */}
             <div className={styles.posterContainer}>
@@ -61,34 +119,6 @@ export default function ShowsSection({ upcomingShow }) {
                   >
                     Purchase Tickets
                   </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Second Show - Revel Event */}
-          <div className={styles.showItem}>
-            {/* Poster as Foreground Element */}
-            <div className={styles.posterContainer}>
-              <img 
-                src="/revel-flyer.png"
-                alt="Revel Mural Unveiling Event Poster"
-                className={styles.posterImage}
-              />
-            </div>
-          
-            {/* Text Box */}
-            <div className={styles.textBoxContainer}>
-              <div className={styles.textBox}>
-                <h3 className={styles.showTitle}>
-                  Mural Unveling at Revel
-                </h3>
-                
-                <div className={styles.showDetails}>
-                  <p>November 1st, 2025</p>
-                  <p>6PM</p>
-                  <p>No Cover</p>
-                  <p>Revel Entertainment Center Main Stage, Albuquerque</p>
                 </div>
               </div>
             </div>

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import HeroSection from '../components/HeroSection'
 import ShowsSection from '../components/ShowsSection'
 import GallerySection from '../components/GallerySection'
+import BandHeroSection from '../components/BandHeroSection'
 
 export default function Home({ bandInfo, albums, shows }) {
   const { socialMedia } = bandInfo
@@ -728,6 +729,9 @@ export default function Home({ bandInfo, albums, shows }) {
             )}
           </div>
         </section>
+        
+        {/* Band Hero Section - Full width image before footer */}
+        <BandHeroSection />
       </main>
 
       {/* Footer */}

@@ -2,7 +2,7 @@
 bandName: "WysteriA"
 tagline: "New Mexico Goth"
 city: "Albuquerque"
-heroImage: "/band-hero.jpeg"
+heroImage: "/band-hero2.jpeg"
 studioImage: "/band-studio.jpg"
 about: |
   WysteriA is a goth band that emerges from the shadows of Albuquerque, New Mexico, crafting dark symphonies of the night.

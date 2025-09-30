@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     
     const data = await response.text();
     
-    // Return the XML response as-is, letting the client parse it
+    // Return the XML response as-is, letting the client parse itaka
     res.setHeader('Content-Type', 'application/xml');
     res.status(200).send(data);
   } catch (error) {
