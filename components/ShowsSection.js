@@ -53,7 +53,7 @@ export default function ShowsSection({ upcomingShow }) {
                   <p>7PM</p>
                   <p>21+ Only</p>
                   <p>$10 cover</p>
-                  <p>Launchpad ABQ - 622 Central Ave SW, Albuquerque, NM</p>
+                  <p>Inside Out ABQ - 622 Central Ave SW, Albuquerque, NM</p>
                   <p className={styles.showDescription}>Step into the darkness for an evening of goth music. Featuring Wysteria, Funeral Process, Zero Batz, and DJ DSTRBNCE</p>
                 </div>
               </div>
