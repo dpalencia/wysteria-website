@@ -23,7 +23,7 @@ export default function BandHeroSection() {
         position: 'relative'
       }}>
         <img 
-          src="/band-hero.jpeg" 
+          src="/band-hero3.jpeg" 
           alt="WysteriA Band" 
           style={{
             width: '100%',

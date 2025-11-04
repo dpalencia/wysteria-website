@@ -1,6 +1,37 @@
 import React from 'react';
 import { FaYoutube, FaInstagram, FaSpotify, FaTwitter, FaFacebook, FaBandcamp, FaTiktok } from 'react-icons/fa';
 
+// Helper function to decode HTML entities
+function decodeHtmlEntities(text) {
+  const entityMap = {
+    '&quot;': '"',
+    '&apos;': "'",
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&nbsp;': ' ',
+    '&#39;': "'",
+    '&#x27;': "'",
+    '&#x2F;': '/',
+    '&#8217;': "'",
+    '&#8216;': "'",
+    '&#8220;': '"',
+    '&#8221;': '"'
+  };
+  return text
+    // Handle numeric entities (decimal and hex)
+    .replace(/&#(\d+);/g, (match, dec) => {
+      return String.fromCharCode(parseInt(dec, 10));
+    })
+    .replace(/&#x([0-9a-f]+);/gi, (match, hex) => {
+      return String.fromCharCode(parseInt(hex, 16));
+    })
+    // Handle named entities
+    .replace(/&[#\w]+;/g, (entity) => {
+      return entityMap[entity] || entity;
+    });
+}
+
 export default function HeroSection({ bandInfo, socialMedia }) {
   return (
     <section id="about" className="hero-section gothic-bg-full" style={{
@@ -39,7 +70,7 @@ export default function HeroSection({ bandInfo, socialMedia }) {
         }}>
           {bandInfo.tagline}
         </p>
-        <p style={{ 
+        <div style={{ 
           fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)', 
           color: '#e0e0e0', 
           marginBottom: 'clamp(1.5rem, 4vw, 2rem)', 
@@ -50,10 +81,19 @@ export default function HeroSection({ bandInfo, socialMedia }) {
           marginRight: 'auto',
           fontFamily: 'Playfair Display, serif',
           lineHeight: '1.6',
-          fontStyle: 'italic'
+          fontStyle: 'italic',
+          whiteSpace: 'pre-line'
         }}>
-          {bandInfo.about.replace(/<[^>]*>/g, '')}
-        </p>
+          {decodeHtmlEntities(
+            bandInfo.about
+              .replace(/<br\s*\/?>/gi, '\n')
+              .replace(/<\/p>\s*<p>/gi, '\n')
+              .replace(/<\/p>/gi, '\n')
+              .replace(/<p>/gi, '')
+              .replace(/<[^>]*>/g, '')
+              .trim()
+          )}
+        </div>
         <div style={{ 
           display: 'flex', 
           justifyContent: 'center', 

@@ -2,10 +2,11 @@
 bandName: "WysteriA"
 tagline: "New Mexico Goth"
 city: "Albuquerque"
-heroImage: "/band-hero2.jpeg"
+heroImage: "/band-hero.jpeg"
 studioImage: "/band-studio.jpg"
 about: |
-  WysteriA is a goth band that emerges from the shadows of Albuquerque, New Mexico, crafting dark symphonies of the night.
+  WysteriA was formed in September 2024 by drummer-turned-bassist Joey Alvarado and keyboardist Rachel Ortiz with the aim of bringing the goth music of Joey's hometown of Mexico City to the US. With layers of synths and musical sensibilities drawn from an eclectic mix of post-punk, deathrock, and darkwave, WysteriA is currently working on their debut musical release in between playing shows.
+
 socialMedia:
   youtube: "https://www.youtube.com/@WysteriA-v6s"
   instagram: "https://www.instagram.com/wysteria_band505"
