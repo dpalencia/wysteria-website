@@ -79,8 +79,8 @@ export default function Home({ bandInfo, albums, shows }) {
       <Head>
         {/* Basic SEO Meta Tags */}
         <title>{bandInfo.bandName} - Goth Band | Albuquerque, NM</title>
-        <meta name="description" content={`${bandInfo.bandName} is a goth band from ${bandInfo.city}. Listen to our latest demo 'Infest Digest'.`} />
-        <meta name="keywords" content="goth, gothic metal, gothic rock, dark wave, alternative rock, Albuquerque bands, New Mexico music, gothic music, dark rock, Wysteria, Infest Digest" />
+        <meta name="description" content={`${bandInfo.bandName} is a goth band from ${bandInfo.city}. New demos from our Halloween show are available on our YouTube channel!`} />
+        <meta name="keywords" content="goth, gothic metal, gothic rock, dark wave, alternative rock, Albuquerque bands, New Mexico music, gothic music, dark rock, Wysteria, Callous Misconception" />
         <meta name="author" content={bandInfo.bandName} />
         <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -114,7 +114,6 @@ export default function Home({ bandInfo, albums, shows }) {
         {/* Music-specific Meta Tags */}
         <meta name="music:musician" content={bandInfo.bandName} />
         <meta name="music:genre" content="Goth" />
-        <meta name="music:album" content="Infest Digest" />
         
         {/* Structured Data */}
         <script
@@ -180,7 +179,7 @@ export default function Home({ bandInfo, albums, shows }) {
                     maxWidth: '8rem'
                   }}
                 />
-                <span className="sr-only">Wysteria</span>
+                <span className="sr-only">WysteriA</span>
               </a>
               
               {/* Navigation Links */}
@@ -453,7 +452,7 @@ export default function Home({ bandInfo, albums, shows }) {
               color: '#dc143c',
               padding: '0 1rem'
             }}>
-              Demo - Infest Digest
+              Callous Misconception (Live Demo)
             </h2>
             <div style={{ 
               position: 'relative',
@@ -472,8 +471,8 @@ export default function Home({ bandInfo, albums, shows }) {
                 overflow: 'hidden'
               }}>
                 <iframe
-                  src="https://www.youtube.com/embed/YmdO-4pe3Hk?si=DA0agqxcyCFrtBCI"
-                  title={`${bandInfo.bandName} - Infest Digest Live Performance`}
+                  src="https://www.youtube.com/embed/_Eh55BsTbzw?si=lImzW_Y6LbTzZHj_"
+                  title={`${bandInfo.bandName} - Callous Misconception Live Demo`}
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -499,8 +498,35 @@ export default function Home({ bandInfo, albums, shows }) {
               padding: '0 1rem',
               lineHeight: '1.6'
             }}>
-              Enjoy our new demo, Infest Digest.
+              New demos from our Halloween show are available on our YouTube channel! 
             </p>
+            {socialMedia.youtube && (
+              <a 
+                href={socialMedia.youtube} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-block',
+                  marginTop: 'clamp(1rem, 3vw, 1.5rem)',
+                  padding: '0.75rem 1.5rem',
+                  backgroundColor: '#8b0000',
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  borderRadius: '4px',
+                  fontFamily: 'Cinzel, serif',
+                  fontWeight: 'bold',
+                  fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  transition: 'background-color 0.3s ease',
+                }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = '#dc143c'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = '#8b0000'}
+                aria-label={`Visit ${bandInfo.bandName} on YouTube`}
+              >
+                Watch More Demos on YouTube
+              </a>
+            )}
           </div>
         </section>
         
