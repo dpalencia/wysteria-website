@@ -56,14 +56,19 @@ export default function ShowsSection({ upcomingShow }) {
                     {upcomingShow.address && (
                       <p><strong>Location:</strong> {upcomingShow.address}{upcomingShow.city ? `, ${upcomingShow.city}` : ''}</p>
                     )}
-                    {upcomingShow.date && (
-                      <p><strong>Date:</strong> {new Date(upcomingShow.date).toLocaleDateString('en-US', { 
-                        weekday: 'long', 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                      })}</p>
-                    )}
+                    {upcomingShow.date && (() => {
+                      const dateStr = upcomingShow.date;
+                      const [year, month, day] = dateStr.split('-').map(Number);
+                      const date = new Date(year, month - 1, day);
+                      return (
+                        <p><strong>Date:</strong> {date.toLocaleDateString('en-US', { 
+                          weekday: 'long', 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}</p>
+                      );
+                    })()}
                     {upcomingShow.time && (
                       <p><strong>Time:</strong> {upcomingShow.time}</p>
                     )}
