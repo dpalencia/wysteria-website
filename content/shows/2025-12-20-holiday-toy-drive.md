@@ -7,7 +7,7 @@ address: "622 Central Ave SW"
 city: "Albuquerque, NM"
 ticketPrice: "$5 entry or a new unwrapped toy donation"
 ticketInfo: "$5 entry or a new unwrapped toy donation"
-description: "Join us for a night of dark music featuring Dakota Ave, Atlas//Below, Secure the Void, Engage Eight, Wysteria, Destroy to Recreate, and Sugarmotor. Doors at 5."
+description: "A special Holiday Toy Drive performance, featuring Dakota Ave, Atlas//Below, Secure the Void, Engage Eight, Wysteria, Destroy to Recreate, and Sugarmotor. Doors at 5."
 posterImage: "/toy-drive-flyer.jpeg"
 featured: true
 ---
