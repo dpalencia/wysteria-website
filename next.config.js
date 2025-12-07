@@ -14,6 +14,10 @@ const nextConfig = {
       },
     ],
   },
+  // Disable Turbopack to use Webpack (for compatibility)
+  experimental: {
+    turbo: false,
+  },
 };
 
 module.exports = nextConfig;
