@@ -5,7 +5,6 @@ const nextConfig = {
     GALLERY_BUCKET_NAME: 'wysteria-image-gallery',
   },
   images: {
-    domains: ['storage.googleapis.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -13,10 +12,6 @@ const nextConfig = {
         pathname: '/wysteria-gallery/**',
       },
     ],
-  },
-  // Disable Turbopack to use Webpack (for compatibility)
-  experimental: {
-    turbo: false,
   },
 };
 
