@@ -396,7 +396,7 @@ export default function Home({ bandInfo, albums, shows }) {
               color: '#dc143c',
               padding: '0 1rem'
             }}>
-              Callous Misconception (Live Demo)
+              Emily's Revenge - Live at El Rey
             </h2>
             <div style={{ 
               position: 'relative',
@@ -415,8 +415,8 @@ export default function Home({ bandInfo, albums, shows }) {
                 overflow: 'hidden'
               }}>
                 <iframe
-                  src="https://www.youtube.com/embed/_Eh55BsTbzw?si=lImzW_Y6LbTzZHj_"
-                  title={`${bandInfo.bandName} - Callous Misconception Live Demo`}
+                  src="https://www.youtube.com/embed/kp0TdtTYayk?si=EPtfjqXeuITaZ7SS"
+                  title={`${bandInfo.bandName} - Emily's Revenge Live at El Rey`}
                   style={{
                     position: 'absolute',
                     top: 0,
