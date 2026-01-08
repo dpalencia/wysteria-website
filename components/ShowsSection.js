@@ -1,7 +1,75 @@
 import React from 'react';
 import styles from './ShowsSection.module.css';
 
-export default function ShowsSection({ upcomingShow }) {
+function ShowItem({ show }) {
+  return (
+    <div className={styles.showItem}>
+      {show.posterImage && (
+        <div className={styles.posterContainer}>
+          <img 
+            src={show.posterImage} 
+            alt={`${show.title} poster`}
+            className={styles.posterImage}
+          />
+        </div>
+      )}
+      <div className={styles.textBoxContainer}>
+        <div className={styles.textBox}>
+          <h3 className={styles.showTitle}>{show.title}</h3>
+          {show.description && (
+            <div className={styles.showDescription} style={{ 
+              fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+              marginBottom: 'clamp(1rem, 2vw, 1.5rem)'
+            }}>
+              {show.description}
+            </div>
+          )}
+          <div className={styles.showDetails} style={{ fontSize: 'clamp(0.9rem, 2.2vw, 1.1rem)' }}>
+            {show.venue && (
+              <p><strong>Venue:</strong> {show.venue}</p>
+            )}
+            {show.address && (
+              <p><strong>Location:</strong> {show.address}{show.city ? `, ${show.city}` : ''}</p>
+            )}
+            {show.date && (() => {
+              const dateStr = show.date;
+              const [year, month, day] = dateStr.split('-').map(Number);
+              const date = new Date(year, month - 1, day);
+              return (
+                <p><strong>Date:</strong> {date.toLocaleDateString('en-US', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}</p>
+              );
+            })()}
+            {show.time && (
+              <p><strong>Time:</strong> {show.time}</p>
+            )}
+            {show.ticketInfo && (
+              <p><strong>Entry:</strong> {show.ticketInfo}</p>
+            )}
+          </div>
+          {show.ticketLink && (
+            <a 
+              href={show.ticketLink} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.ticketButton}
+            >
+              Get Tickets
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function ShowsSection({ shows }) {
+  const hasShows = shows && shows.length > 0;
+
   return (
     <>
       {/* Section Title - Moved outside the section for better visibility */}
@@ -27,68 +95,10 @@ export default function ShowsSection({ upcomingShow }) {
         <div className={styles.darkBackground}></div>
         
         <div className={styles.showsContainer} style={{ position: 'relative', zIndex: 2 }}>
-          {upcomingShow ? (
-            <div className={styles.showItem}>
-              {upcomingShow.posterImage && (
-                <div className={styles.posterContainer}>
-                  <img 
-                    src={upcomingShow.posterImage} 
-                    alt={`${upcomingShow.title} poster`}
-                    className={styles.posterImage}
-                  />
-                </div>
-              )}
-              <div className={styles.textBoxContainer}>
-                <div className={styles.textBox}>
-                  <h3 className={styles.showTitle}>{upcomingShow.title}</h3>
-                  {upcomingShow.description && (
-                    <div className={styles.showDescription} style={{ 
-                      fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-                      marginBottom: 'clamp(1rem, 2vw, 1.5rem)'
-                    }}>
-                      {upcomingShow.description}
-                    </div>
-                  )}
-                  <div className={styles.showDetails} style={{ fontSize: 'clamp(0.9rem, 2.2vw, 1.1rem)' }}>
-                    {upcomingShow.venue && (
-                      <p><strong>Venue:</strong> {upcomingShow.venue}</p>
-                    )}
-                    {upcomingShow.address && (
-                      <p><strong>Location:</strong> {upcomingShow.address}{upcomingShow.city ? `, ${upcomingShow.city}` : ''}</p>
-                    )}
-                    {upcomingShow.date && (() => {
-                      const dateStr = upcomingShow.date;
-                      const [year, month, day] = dateStr.split('-').map(Number);
-                      const date = new Date(year, month - 1, day);
-                      return (
-                        <p><strong>Date:</strong> {date.toLocaleDateString('en-US', { 
-                          weekday: 'long', 
-                          year: 'numeric', 
-                          month: 'long', 
-                          day: 'numeric' 
-                        })}</p>
-                      );
-                    })()}
-                    {upcomingShow.time && (
-                      <p><strong>Time:</strong> {upcomingShow.time}</p>
-                    )}
-                    {upcomingShow.ticketInfo && (
-                      <p><strong>Entry:</strong> {upcomingShow.ticketInfo}</p>
-                    )}
-                  </div>
-                  {upcomingShow.ticketLink && (
-                    <a 
-                      href={upcomingShow.ticketLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className={styles.ticketButton}
-                    >
-                      Get Tickets
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
+          {hasShows ? (
+            shows.map((show, index) => (
+              <ShowItem key={show.slug || index} show={show} />
+            ))
           ) : (
             <h3 style={{
               textAlign: 'center',

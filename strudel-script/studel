@@ -1,0 +1,56 @@
+// ═══════════════════════════════════════════════════════════════
+// DARKWAVE CATHEDRAL - a cheesy goth opus
+// ═══════════════════════════════════════════════════════════════
+
+// DRUMS - driving post-punk motorik with ghost notes
+$: s("bd [~ bd:3] <bd [bd bd:2]> [~ cp]")
+  .bank("RolandTR808").room(.35).shape(.3).gain(1.1)
+
+$: s("[~ hh]*4").bank("RolandTR808").gain(.45).pan(sine.slow(4))
+  .delay(.15).delaytime(.166).delayfeedback(.3)
+
+$: s("~ ~ ~ [oh:2 ~]").bank("RolandTR808").gain(.3).room(.5)
+
+// CHORDS - lush minor 7ths & diminished drama
+let chords = "<Am7 Dm9 Em7 Bdim7>"
+
+// PAD LAYER 1 - low detuned saw pad (the "warm doom")
+$: n("0").chord(chords).voicing().s("sawtooth,sawtooth")
+  .detune(12).lpf(800).resonance(6)
+  .attack(.3).decay(.5).sustain(.7).release(1)
+  .room(.6).size(.9).delay(.4).delaytime(.375).gain(.5)
+
+// PAD LAYER 2 - shimmery high octave strings
+$: n("12").chord(chords).voicing().s("triangle,triangle")
+  .detune(8).lpf(sine.range(1500,3500).slow(8))
+  .attack(.5).decay(.4).sustain(.8).release(1.5)
+  .room(.7).size(.95).gain(.3)
+
+// BASS - pulsing octave synth bass
+$: n("<0 0 -12 0> <0 -12 0 [-12 0]>").chord(chords).mode("below:1")
+  .s("square").lpf(350).resonance(12)
+  .decay(.15).sustain(.4)
+  .shape(.4).room(.25).gain(.85)
+
+// ARPEGGIO - the classic darkwave 16th note shimmer
+$: n("0 3 5 7 10 7 5 3").chord(chords).mode("below").fast(2)
+  .s("sawtooth").lpf(tri.range(900,2200).slow(4)).resonance(10)
+  .attack(.01).decay(.2).sustain(.3).release(.4)
+  .delay(.5).delaytime(.125).delayfeedback(.45)
+  .room(.5).pan(sine.range(.3,.7).fast(2)).gain(.4)
+
+// COUNTER-MELODY - haunting upper register
+$: n("<7 5 3 0> <10 7 ~ 5>").chord(chords).slow(2)
+  .s("triangle").lpf(2500)
+  .attack(.1).decay(.3).sustain(.5).release(.8)
+  .delay(.6).delaytime(.25).delayfeedback(.5)
+  .room(.7).gain(.35)
+
+// ATMOSPHERE - noise sweep for texture
+$: s("~ ~ ~ noise:3").lpf(saw.range(200,1200).slow(2))
+  .decay(.8).sustain(0).room(.8).gain(.15)
+
+// TOMS - tribal accent every 4 bars
+$: s("~ ~ ~ [tom:2 tom:3]").slow(4).bank("RolandTR808")
+  .room(.6).delay(.3).gain(.5)
+

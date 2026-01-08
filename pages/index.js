@@ -9,7 +9,15 @@ import BandHeroSection from '../components/BandHeroSection'
 
 export default function Home({ bandInfo, albums, shows }) {
   const { socialMedia } = bandInfo
-  const upcomingShow = shows && shows.length > 0 ? shows[0] : null;
+  // Filter to only show upcoming shows (today or future)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const upcomingShows = shows ? shows.filter(show => {
+    if (!show.date) return false;
+    const [year, month, day] = show.date.split('-').map(Number);
+    const showDate = new Date(year, month - 1, day);
+    return showDate >= today;
+  }) : [];
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState({ submitted: false, error: false });
   
@@ -373,7 +381,7 @@ export default function Home({ bandInfo, albums, shows }) {
           <HeroSection bandInfo={bandInfo} socialMedia={socialMedia} />
           
           {/* Upcoming Show Section with Gallery Background - Positioned to overlap */}
-          <ShowsSection upcomingShow={upcomingShow} />
+          <ShowsSection shows={upcomingShows} />
         </div>
         
         {/* Gallery Section */}
